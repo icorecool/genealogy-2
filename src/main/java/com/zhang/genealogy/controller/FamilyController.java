@@ -2,6 +2,9 @@ package com.zhang.genealogy.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.zhang.genealogy.config.Result;
+import com.zhang.genealogy.dto.FamilyFormDTO;
+import com.zhang.genealogy.exception.CommonException;
+import com.zhang.genealogy.exception.ErrorCode;
 import com.zhang.genealogy.model.Family;
 import com.zhang.genealogy.qb.FamilyQB;
 import com.zhang.genealogy.service.FamilyService;
@@ -36,6 +39,25 @@ public class FamilyController {
         PageInfo<Family> familyPageInfo = familyService.queryPage(familyQB);
         Result result = new Result();
         result.addObject("page", familyPageInfo);
+        return result;
+    }
+
+    /**
+     * 新增家人
+     *
+     * @param familyFormDTO
+     * @return
+     */
+    @RequestMapping("/add")
+    public Result addFamily(FamilyFormDTO familyFormDTO) {
+        if (null == familyFormDTO) {
+            throw new CommonException(ErrorCode.PARAM_IS_EMPTY);
+        }
+        if (null == familyFormDTO.getHusband()) {
+            throw new CommonException(ErrorCode.PARAM_IS_EMPTY);
+        }
+        familyService.addFamily(familyFormDTO);
+        Result result = new Result();
         return result;
     }
 

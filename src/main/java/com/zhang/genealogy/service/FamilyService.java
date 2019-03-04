@@ -1,6 +1,7 @@
 package com.zhang.genealogy.service;
 
 import com.github.pagehelper.PageInfo;
+import com.zhang.genealogy.dto.FamilyFormDTO;
 import com.zhang.genealogy.model.Family;
 import com.zhang.genealogy.qb.FamilyQB;
 
@@ -16,4 +17,11 @@ public interface FamilyService {
      * @return
      */
     PageInfo<Family> queryPage(FamilyQB familyQB);
+
+    /**
+     * 新增家人
+     *
+     * @param familyFormDTO
+     */
+    void addFamily(FamilyFormDTO familyFormDTO);
 }
