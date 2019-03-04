@@ -28,6 +28,7 @@ public class Constants {
 
     // session中 平台用户名称、平台用户id、平台用户类型
     public final static String PLATFORM_USER_LOGIN_NAME = "loginName";
+    public final static String PLATFORM_USER_SHOW_NAME = "showName";
     public final static String PLATFORM_USER_ID = "id";
     public final static String PLATFORM_USER_TYPE = "type";
 

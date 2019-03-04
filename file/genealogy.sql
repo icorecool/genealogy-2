@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2019-03-04 10:08:24
+Date: 2019-03-04 11:36:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `family` (
   `gender` int(1) DEFAULT NULL COMMENT '性别：0-女、1-男',
   `zi` varchar(25) COLLATE utf8_bin DEFAULT NULL COMMENT '字',
   `bei` varchar(25) COLLATE utf8_bin DEFAULT NULL COMMENT '辈',
-  `fatherId` int(11) DEFAULT NULL COMMENT '父亲ID',
+  `parentsId` int(11) DEFAULT NULL COMMENT '父亲ID',
   `generation` int(2) DEFAULT NULL COMMENT '第几代',
   `ranking` int(2) DEFAULT NULL COMMENT '排行，长、次、三、四、五、六',
   `is_living` int(1) DEFAULT NULL COMMENT '是否在世：0-在世、1-去世',

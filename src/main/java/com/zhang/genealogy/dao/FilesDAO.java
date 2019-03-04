@@ -1,6 +1,7 @@
 package com.zhang.genealogy.dao;
 
 import com.zhang.genealogy.model.Files;
+import com.zhang.genealogy.qb.FilesQB;
 
 import java.util.List;
 
@@ -15,10 +16,10 @@ public interface FilesDAO {
     /**
      * 查询上传文件列表
      *
-     * @param files
+     * @param filesQB
      * @return
      */
-    List<Files> queryList(Files files);
+    List<Files> queryList(FilesQB filesQB);
 
     /**
      * 插入上传文件信息

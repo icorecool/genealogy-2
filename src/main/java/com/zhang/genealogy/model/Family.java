@@ -18,7 +18,7 @@ public class Family {
     /**
      * 主键自增
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 姓名
@@ -48,7 +48,7 @@ public class Family {
     /**
      * 父母ID-默认存储的是父亲ID
      */
-    private Integer parentsId;
+    private Long parentsId;
 
     /**
      * 世代
@@ -108,7 +108,7 @@ public class Family {
     /**
      * 丈夫ID
      */
-    private Integer husbandId;
+    private Long husbandId;
 
     /**
      * 头像URL

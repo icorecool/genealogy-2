@@ -84,6 +84,7 @@ public class PlatformLoginController {
         session.setAttribute(Constants.PLATFORM_USER_LOGIN_NAME, loginName);
         session.setAttribute(Constants.PLATFORM_USER_ID, platformUser.getId());
         session.setAttribute(Constants.PLATFORM_USER_TYPE, platformUser.getUserType());
+        session.setAttribute(Constants.PLATFORM_USER_SHOW_NAME, platformUser.getUserShowName());
         // 验证成功，删除存储的验证码
         session.removeAttribute("verCode");
         session.removeAttribute("codeTime");

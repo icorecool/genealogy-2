@@ -18,7 +18,7 @@ public class Files {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 文件路径
@@ -33,7 +33,7 @@ public class Files {
     /**
      * 创建人ID
      */
-    private Integer createUserId;
+    private Long createUserId;
 
     /**
      * 创建人展示姓名
