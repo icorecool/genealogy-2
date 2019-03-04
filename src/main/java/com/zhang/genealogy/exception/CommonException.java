@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 /**
  * 通用异常类
  *
- * @author wuq
+ * @author zhangchao
  * @date 2019-01-30
  */
 public class CommonException extends RuntimeException {

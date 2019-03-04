@@ -19,7 +19,7 @@ public interface FamilyDAO {
      * @param family
      * @return
      */
-    List<Files> queryList(Family family);
+    List<Family> queryList(Family family);
 
     /**
      * 根据主键ID查询家人信息
@@ -27,7 +27,7 @@ public interface FamilyDAO {
      * @param id
      * @return
      */
-    Files queryById(Long id);
+    Family queryById(Long id);
 
     /**
      * 插入家人信息

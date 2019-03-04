@@ -148,9 +148,9 @@ public class FileController {
      * @param filesQB
      * @return
      */
-    @RequestMapping("/list")
+    @RequestMapping("/page")
     @ResponseBody
-    public Result queryList(FilesQB filesQB) {
+    public Result queryPage(FilesQB filesQB) {
         PageInfo<Files> filesPageInfo = filesService.queryPage(filesQB);
         Result result = new Result();
         result.addObject("page", filesPageInfo);

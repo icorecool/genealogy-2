@@ -41,10 +41,21 @@
         select
         <include refid="Base_Column_List"/>
         from family
+        <where>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+            <if test="phone != null">
+                and phone = #{phone}
+            </if>
+            <if test="generation != null">
+                and generation = #{generation}
+            </if>
+        </where>
         order by id desc
     </select>
 
-    <select id="queryById" resultType="com.zhang.genealogy.model.Files">
+    <select id="queryById" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from family
