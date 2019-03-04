@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zhang.genealogy.dao.FilesDAO">
+
+    <resultMap id="BaseResultMap" type="com.zhang.genealogy.model.Files">
+        <id column="id" property="id"/>
+        <result column="url" property="url"/>
+        <result column="name" property="name"/>
+        <result column="create_userid" property="createUserId"/>
+        <result column="create_showname" property="createShowName"/>
+        <result column="delete_status" property="deleteStatus"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      id, url, name, create_userid, create_showname, delete_status, create_time
+    </sql>
+
+    <select id="queryList" resultMap="BaseResultMap" parameterType="com.zhang.genealogy.model.Files">
+        select
+        <include refid="Base_Column_List"/>
+        from files
+        order by id desc
+    </select>
+
+    <insert id="insert" parameterType="com.zhang.genealogy.model.Files" useGeneratedKeys="true" keyProperty="id">
+        insert into files
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="url != null">
+                url,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="createUserid != null">
+                create_userid,
+            </if>
+            <if test="createShowname != null">
+                create_showname,
+            </if>
+            <if test="deleteStatus != null">
+                delete_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="url != null">
+                #{url},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="createUserid != null">
+                #{createUserid},
+            </if>
+            <if test="createShowname != null">
+                #{createShowname},
+            </if>
+            <if test="deleteStatus != null">
+                #{deleteStatus},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>
