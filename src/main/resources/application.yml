@@ -12,7 +12,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
   servlet:
     multipart:
-      max-file-size: 50
+      max-file-size: 1024
+      max-request-size: 1024
   jackson:
     date-format: yyyy/MM/dd HH:mm:ss
     time-zone: GMT+8
