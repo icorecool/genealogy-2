@@ -17,7 +17,12 @@ import java.security.MessageDigest;
  * @date 2019-02-01
  */
 public class MD5Util {
+
     private static final Logger logger = LoggerFactory.getLogger(MD5Util.class);
+
+    public static void main(String[] args) {
+        System.out.println(toMD5("199309zc"));
+    }
 
     /**
      * 返回字符串的md5加密结果
@@ -93,7 +98,9 @@ public class MD5Util {
      */
     public static String getUnsignMD5Hash(String value) {
         BigInteger bival = BigInteger.valueOf(getMD5Hash(value));
-        if (bival.signum() < 0) bival = bival.add(BigInteger.ONE.shiftLeft(64));
+        if (bival.signum() < 0) {
+            bival = bival.add(BigInteger.ONE.shiftLeft(64));
+        }
         return bival.toString();
     }
 
