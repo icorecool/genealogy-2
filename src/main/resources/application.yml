@@ -14,7 +14,7 @@ spring:
     multipart:
       max-file-size: 50
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy/MM/dd HH:mm:ss
     time-zone: GMT+8
 mybatis:
   type-aliases-package: com.zhang.genealogy.model

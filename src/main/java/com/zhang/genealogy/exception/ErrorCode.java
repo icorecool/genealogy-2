@@ -56,14 +56,8 @@ public enum ErrorCode {
     // 编码数据异常
     ENCODER_DATA_ERROR("10019", "编码数据[{0}]出错"),
 
-    // 获取HTTP响应输出流异常
-    GET_HTTP_RESPONSE_OUT_ERROR("10020", "获取HTTP响应输出流出错"),
-
     // 导出Excel异常
     EXPORT_EXCEL_ERROR("10021", "导出数据到Excel出错"),
-
-    // ES结果集太大异常
-    ES_TOO_LARGE_RESULT_SET_ERROR("10022", "查询结果集条数不能超过10000"),
 
     // 参数校验失败异常
     PARAM_VALIDATE_FAILED("10023", "参数校验失败：{0}"),
@@ -88,8 +82,8 @@ public enum ErrorCode {
 
 
     /*----------start:文件上传异常 ---------*/
-    FILE_UPLOAD_ERROR("70001", "文件上传失败");
-    /*----------end:账户异常 ---------*/
+    FILE_UPLOAD_ERROR("30001", "文件上传失败");
+    /*----------end:文件上传异常 ---------*/
     /**
      * 错误码
      */

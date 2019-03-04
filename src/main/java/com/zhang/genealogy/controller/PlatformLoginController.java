@@ -73,7 +73,7 @@ public class PlatformLoginController {
         } catch (Exception e) {
             throw new CommonException(ErrorCode.USER_VERIFY_ERROR);
         }
-        //校验
+        //校验验证码
         platformLoginService.checkVerify(code, verCode.toString(), generationTime);
 
         //登录

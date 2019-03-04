@@ -1,7 +1,7 @@
 package com.zhang.genealogy.exception;
 
 
-import com.zhang.genealogy.util.CommonUtil;
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 通用异常类
@@ -55,7 +55,7 @@ public class CommonException extends RuntimeException {
      */
     private static String replaceParam(String message, String... params) {
         String errorMsg = message;
-        if (CommonUtil.isNotEmpty(errorMsg) && errorMsg.contains("{")
+        if (StrUtil.isNotEmpty(errorMsg) && errorMsg.contains("{")
                 && errorMsg.contains("}")) {
             // 每次循环替换一个参数
             for (String param : params) {

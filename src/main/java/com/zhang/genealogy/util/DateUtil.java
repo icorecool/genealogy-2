@@ -1,5 +1,6 @@
 package com.zhang.genealogy.util;
 
+import cn.hutool.core.util.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,7 +91,7 @@ public class DateUtil {
      */
     public static Date str2Date(String date, String pattern) {
         Date _d = null;
-        if (CommonUtil.isEmpty(date)) {
+        if (StrUtil.isEmpty(date)) {
             return null;
         }
         try {
@@ -110,7 +111,7 @@ public class DateUtil {
      */
     public static Date strToDate(String date, String pattern) {
         Date _d = null;
-        if (CommonUtil.isEmpty(date)) {
+        if (StrUtil.isEmpty(date)) {
             return null;
         }
         try {

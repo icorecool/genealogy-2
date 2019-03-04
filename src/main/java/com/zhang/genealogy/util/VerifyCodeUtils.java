@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * 生成验证码公共类
+ * 验证码公共类
  *
  * @Auther: zhangchao
  * @Date: 2019/2/15 13:05

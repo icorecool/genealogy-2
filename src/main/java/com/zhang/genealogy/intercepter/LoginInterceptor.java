@@ -3,8 +3,6 @@ package com.zhang.genealogy.intercepter;
 import com.zhang.genealogy.constant.Constants;
 import com.zhang.genealogy.exception.CommonException;
 import com.zhang.genealogy.exception.ErrorCode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +15,6 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2019-02-15
  */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
-
-    private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
-
 
     /**
      * 在请求被处理之前调用
@@ -35,7 +30,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         // 检查每个到来的请求对应的session域中是否有登录标识
         Object loginName = request.getSession().getAttribute(Constants.PLATFORM_USER_LOGIN_NAME);
         if (null == loginName || !(loginName instanceof String)) {
-            logger.error("用户未登录");
             throw new CommonException(ErrorCode.USER_NOT_LOGIN);
         }
         return true;

@@ -18,7 +18,7 @@ import java.util.List;
  * @Date: 2019/2/25 11:41
  */
 @Component
-public class DateConverterConfig implements Converter<String, Date> {
+public class DateConfig implements Converter<String, Date> {
 
     private static final List<String> formarts = new ArrayList<>(4);
 
@@ -28,17 +28,17 @@ public class DateConverterConfig implements Converter<String, Date> {
         if ("".equals(value)) {
             return null;
         }
-        if (source.matches("^\\d{4}-\\d{1,2}$")) {
-            //"yyyy-MM"
+        if (source.matches("^\\d{4}/\\d{1,2}$")) {
+            //"yyyy/MM"
             return DateUtil.str2Date(source, DateUtil.DEFAULT_DATE_PATTERN_YEAR_MONTH);
-        } else if (source.matches("^\\d{4}-\\d{1,2}-\\d{1,2}$")) {
-            //"yyyy-MM-dd"
+        } else if (source.matches("^\\d{4}/\\d{1,2}/\\d{1,2}$")) {
+            //"yyyy/MM/dd"
             return DateUtil.str2Date(source, DateUtil.DEFAULT_DATE_PATTERN);
-        } else if (source.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}$")) {
-            //"yyyy-MM-dd hh:mm"
+        } else if (source.matches("^\\d{4}/\\d{1,2}/\\d{1,2} {1}\\d{1,2}:\\d{1,2}$")) {
+            //"yyyy/MM/dd hh:mm"
             return DateUtil.str2Date(source, DateUtil.DEFAULT_DATE_PATTERN_MINUTE);
-        } else if (source.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")) {
-            //"yyyy-MM-dd hh:mm:ss"
+        } else if (source.matches("^\\d{4}/\\d{1,2}/\\d{1,2} {1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")) {
+            //"yyyy/MM/dd hh:mm:ss"
             return DateUtil.str2Date(source, DateUtil.DEFAULT_DATE_PATTERN_DETAIL);
         } else {
             throw new CommonException(ErrorCode.PARSE_DATE_ERROR, source);

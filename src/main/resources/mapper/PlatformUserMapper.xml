@@ -36,85 +36,6 @@
         where login_name = #{loginName}
     </select>
 
-    <select id="queryUserList" resultMap="BaseResultMap" parameterType="com.zhang.genealogy.qb.PlatformUserQB">
-        select
-        <include refid="Base_Column_List"/>
-        from platform_user
-        where 1 = 1
-        <if test="userType !=null">
-            and user_type = #{userType}
-        </if>
-
-        <if test="queryParam != null and queryParam != ''">
-            and (CAST(id as CHAR) like CONCAT('%',#{queryParam},'%')
-            or user_show_name like CONCAT('%',#{queryParam},'%')
-            or login_name like CONCAT('%',#{queryParam},'%'))
-        </if>
-    </select>
-
-    <insert id="insertUser" parameterType="com.zhang.genealogy.model.PlatformUser"
-            useGeneratedKeys="true" keyProperty="id">
-        insert into platform_user
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userShowName != null">
-                user_show_name,
-            </if>
-            <if test="loginName != null">
-                login_name,
-            </if>
-            <if test="password != null">
-                password,
-            </if>
-            <if test="userStatus != null">
-                user_status,
-            </if>
-            <if test="userType != null">
-                user_type,
-            </if>
-            <if test="loginTime != null">
-                login_time,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-            <if test="updateTime != null">
-                update_time,
-            </if>
-            <if test="remark != null">
-                remark,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="userShowName != null">
-                #{userShowName},
-            </if>
-            <if test="loginName != null">
-                #{loginName},
-            </if>
-            <if test="password != null">
-                #{password},
-            </if>
-            <if test="userStatus != null">
-                #{userStatus},
-            </if>
-            <if test="userType != null">
-                #{userType},
-            </if>
-            <if test="loginTime != null">
-                #{loginTime},
-            </if>
-            <if test="createTime != null">
-                #{createTime},
-            </if>
-            <if test="updateTime != null">
-                #{updateTime},
-            </if>
-            <if test="remark != null">
-                #{remark},
-            </if>
-        </trim>
-    </insert>
-
     <update id="updateUser" parameterType="com.zhang.genealogy.model.PlatformUser">
         update platform_user
         <set>
@@ -142,13 +63,14 @@
                 </if>
             </trim>
         </set>
-        where 1=1
-        <if test="id != null and id != 0">
-            and id = #{id}
-        </if>
-        <if test="loginName != null">
-            and login_name = #{loginName}
-        </if>
+        <where>
+            <if test="id != null and id != 0">
+                and id = #{id}
+            </if>
+            <if test="loginName != null">
+                and login_name = #{loginName}
+            </if>
+        </where>
     </update>
 
 </mapper>

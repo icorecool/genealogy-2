@@ -1,5 +1,6 @@
 package com.zhang.genealogy.intercepter;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -10,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author zhangchao
  * @date 2019-02-15
  */
-//@Configuration
+@Configuration
 public class LoginConfiguration implements WebMvcConfigurer {
 
     /**
@@ -31,7 +32,6 @@ public class LoginConfiguration implements WebMvcConfigurer {
         loginRegistry.excludePathPatterns("/platformUser/checkVerify");
         loginRegistry.excludePathPatterns("/platformUser/login");
         loginRegistry.excludePathPatterns("/platformUser/loginout");
-        loginRegistry.excludePathPatterns("/excel/*");
 
     }
 }
