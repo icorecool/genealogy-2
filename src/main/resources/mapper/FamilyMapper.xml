@@ -8,11 +8,11 @@
     <resultMap id="BaseResultMap" type="com.zhang.genealogy.model.Family">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
-        <result column="nickname" property="nickname"/>
+        <result column="nickName" property="nickName"/>
         <result column="gender" property="gender"/>
         <result column="zi" property="zi"/>
         <result column="bei" property="bei"/>
-        <result column="fatherId" property="fatherId"/>
+        <result column="parentsId" property="parentsId"/>
         <result column="generation" property="generation"/>
         <result column="ranking" property="ranking"/>
         <result column="is_living" property="isLiving"/>
@@ -32,7 +32,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, name, nickname, gender, zi, bei, fatherId, generation, ranking, is_living, birth_time,
+        id, name, nickName, gender, zi, bei, parentsId, generation, ranking, is_living, birth_time,
         death_time, degree, university, work, phone, address, remark, husbandId, image_url,
         delete_status, create_time, update_time
     </sql>
@@ -43,7 +43,7 @@
         from family
         order by id desc
     </select>
-    
+
     <select id="queryById" resultType="com.zhang.genealogy.model.Files">
         select
         <include refid="Base_Column_List"/>
@@ -57,8 +57,8 @@
             <if test="name != null">
                 name,
             </if>
-            <if test="nickname != null">
-                nickname,
+            <if test="nickName != null">
+                nickName,
             </if>
             <if test="gender != null">
                 gender,
@@ -69,8 +69,8 @@
             <if test="bei != null">
                 bei,
             </if>
-            <if test="fatherid != null">
-                fatherId,
+            <if test="parentsId != null">
+                parentsId,
             </if>
             <if test="generation != null">
                 generation,
@@ -125,8 +125,8 @@
             <if test="name != null">
                 #{name},
             </if>
-            <if test="nickname != null">
-                #{nickname},
+            <if test="nickName != null">
+                #{nickName},
             </if>
             <if test="gender != null">
                 #{gender},
@@ -137,8 +137,8 @@
             <if test="bei != null">
                 #{bei},
             </if>
-            <if test="fatherid != null">
-                #{fatherid},
+            <if test="parentsId != null">
+                #{parentsId},
             </if>
             <if test="generation != null">
                 #{generation},

@@ -28,7 +28,7 @@ public class Family {
     /**
      * 昵称，诨名
      */
-    private String nickname;
+    private String nickName;
 
     /**
      * 性别：0-女、1-男
@@ -46,9 +46,9 @@ public class Family {
     private String bei;
 
     /**
-     * 父亲ID
+     * 父母ID-默认存储的是父亲ID
      */
-    private Integer fatherId;
+    private Integer parentsId;
 
     /**
      * 世代
