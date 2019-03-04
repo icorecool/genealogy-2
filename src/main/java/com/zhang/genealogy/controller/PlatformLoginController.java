@@ -83,7 +83,7 @@ public class PlatformLoginController {
         // 后续通过session里是否存在该标识来判断用户是否登录
         session.setAttribute(Constants.PLATFORM_USER_LOGIN_NAME, loginName);
         session.setAttribute(Constants.PLATFORM_USER_ID, platformUser.getId());
-
+        session.setAttribute(Constants.PLATFORM_USER_TYPE, platformUser.getUserType());
         // 验证成功，删除存储的验证码
         session.removeAttribute("verCode");
         session.removeAttribute("codeTime");

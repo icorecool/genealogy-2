@@ -26,9 +26,11 @@ public class Constants {
     // 通用连接符
     public final static String COMMON_CONNECTOR = "_";
 
-    // session中 平台用户名称、平台用户id
+    // session中 平台用户名称、平台用户id、平台用户类型
     public final static String PLATFORM_USER_LOGIN_NAME = "loginName";
     public final static String PLATFORM_USER_ID = "id";
+    public final static String PLATFORM_USER_TYPE = "type";
+
 
     //平台账号类型，0-管理员，1-普通运营人员
     public final static int CUST_TYPE_ADMIN = 0;

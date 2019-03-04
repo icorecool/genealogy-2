@@ -21,7 +21,7 @@ public class MD5Util {
     private static final Logger logger = LoggerFactory.getLogger(MD5Util.class);
 
     public static void main(String[] args) {
-        System.out.println(toMD5(""));
+        System.out.println(toMD5("zhangchao199309zc"));
     }
 
     /**
