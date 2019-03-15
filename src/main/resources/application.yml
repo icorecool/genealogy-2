@@ -1,8 +1,6 @@
-# \u65E5\u5FD7\u7EA7\u522B
 logging:
   level:
     com.zhang: debug
-  #\u6570\u636E\u5E93\u8FDE\u63A5\u914D\u7F6E
 spring:
   datasource:
     url: jdbc:mysql://47.98.37.85:3306/genealogy?useUnicode=true&characterEncoding=utf8&useSSL=false
