@@ -1,18 +1,19 @@
 package com.zhang.genealogy.intercepter;
 
+import com.zhang.genealogy.constant.Constants;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * 登录拦截器注册类
+ * 拦截器注册类
  *
  * @author zhangchao
  * @date 2019-02-15
  */
 @Configuration
-public class LoginConfiguration implements WebMvcConfigurer {
+public class RegisteredConfiguration implements WebMvcConfigurer {
 
     /**
      * 注册拦截器
@@ -28,10 +29,13 @@ public class LoginConfiguration implements WebMvcConfigurer {
         // 拦截路径
         loginRegistry.addPathPatterns("/**");
         // 排除路径
+        loginRegistry.excludePathPatterns("/");
+        loginRegistry.excludePathPatterns("/error");
         loginRegistry.excludePathPatterns("/platformUser/getVerify");
         loginRegistry.excludePathPatterns("/platformUser/checkVerify");
         loginRegistry.excludePathPatterns("/platformUser/login");
         loginRegistry.excludePathPatterns("/platformUser/loginout");
+        loginRegistry.excludePathPatterns(Constants.PAGE_PATH + "**");
 
     }
 }

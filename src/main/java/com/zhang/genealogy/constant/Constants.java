@@ -45,4 +45,7 @@ public class Constants {
     public final static int DELETE_STATUS_OK = 0;
     public final static int DELETE_STATUS_DELETED = 1;
 
+    // 页面路径
+    public final static String PAGE_PATH = "/zhang/";
+
 }

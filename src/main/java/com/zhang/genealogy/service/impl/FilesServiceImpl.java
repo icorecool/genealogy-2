@@ -8,6 +8,7 @@ import com.zhang.genealogy.model.Files;
 import com.zhang.genealogy.qb.FilesQB;
 import com.zhang.genealogy.service.FilesService;
 import com.zhang.genealogy.util.DateUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -61,7 +62,9 @@ public class FilesServiceImpl implements FilesService {
 
         // 启用分页
         PageHelper.startPage(pageNum, pageSize);
-        List<Files> filesList = filesDAO.queryList(filesQB);
+        Files files = new Files();
+        BeanUtils.copyProperties(filesQB, files);
+        List<Files> filesList = filesDAO.queryList(files);
         // 构造分页对象
         PageInfo<Files> filesPage = new PageInfo<>(filesList);
         return filesPage;

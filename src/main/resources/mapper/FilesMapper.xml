@@ -19,7 +19,7 @@
       id, url, name, create_userid, create_showname, delete_status, create_time
     </sql>
 
-    <select id="queryList" resultMap="BaseResultMap" parameterType="com.zhang.genealogy.qb.FilesQB">
+    <select id="queryList" resultMap="BaseResultMap" parameterType="com.zhang.genealogy.model.Files">
         select
         <include refid="Base_Column_List"/>
         from files
