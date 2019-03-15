@@ -81,10 +81,9 @@ public class PlatformLoginController {
      * @return
      */
     @RequestMapping("/loginout")
-    @ResponseBody
-    public Result loginOut(HttpServletRequest request) {
+    public String loginOut(HttpServletRequest request) {
         request.getSession().invalidate();
-        return new Result();
+        return "redirect:" + Constants.PAGE_PATH + "login.html";
     }
 
 }
