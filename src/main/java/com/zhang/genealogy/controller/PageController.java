@@ -21,6 +21,6 @@ public class PageController {
      */
     @RequestMapping("/")
     public String login() {
-        return Constants.PAGE_PATH + "index.html";
+        return Constants.PAGE_PATH + "login.html";
     }
 }
