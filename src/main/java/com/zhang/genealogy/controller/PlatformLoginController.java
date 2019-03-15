@@ -53,9 +53,6 @@ public class PlatformLoginController {
         if (null == password) {
             throw new CommonException(ErrorCode.PARAM_IS_EMPTY, "密码");
         }
-        if (null == code) {
-            throw new CommonException(ErrorCode.PARAM_IS_EMPTY, "验证码");
-        }
 
         HttpSession session = request.getSession();
         //登录
