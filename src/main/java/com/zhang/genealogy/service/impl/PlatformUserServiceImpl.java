@@ -1,13 +1,13 @@
 package com.zhang.genealogy.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.zhang.genealogy.dao.PlatformUserDAO;
 import com.zhang.genealogy.exception.CommonException;
 import com.zhang.genealogy.exception.ErrorCode;
 import com.zhang.genealogy.model.PlatformUser;
 import com.zhang.genealogy.service.PlatformUserService;
-import com.zhang.genealogy.util.DateUtil;
-import com.zhang.genealogy.util.MD5Util;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -65,7 +65,7 @@ public class PlatformUserServiceImpl implements PlatformUserService {
      */
     @Override
     public int modifyUser(PlatformUser platformUser) {
-        platformUser.setUpdateTime(DateUtil.getCurrentDate());
+        platformUser.setUpdateTime(DateUtil.date());
         return platformUserDAO.updateUser(platformUser);
     }
 
@@ -99,7 +99,7 @@ public class PlatformUserServiceImpl implements PlatformUserService {
      */
     private String password2MD5(String loginName, String password) {
         String md5info = loginName + password;
-        return MD5Util.toMD5(md5info);
+        return SecureUtil.md5(md5info);
     }
 
 }

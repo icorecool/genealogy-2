@@ -1,6 +1,6 @@
 package com.zhang.genealogy.exception;
 
-import com.zhang.genealogy.config.Result;
+import com.zhang.genealogy.dto.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;

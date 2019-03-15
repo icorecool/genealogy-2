@@ -1,18 +1,16 @@
 package com.zhang.genealogy.service.impl;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.zhang.genealogy.constant.Constants;
 import com.zhang.genealogy.exception.CommonException;
 import com.zhang.genealogy.exception.ErrorCode;
 import com.zhang.genealogy.model.PlatformUser;
 import com.zhang.genealogy.service.PlatformLoginService;
 import com.zhang.genealogy.service.PlatformUserService;
-import com.zhang.genealogy.util.DateUtil;
-import com.zhang.genealogy.util.MD5Util;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 /**
  * 平台用户登录服务实现类
@@ -48,40 +46,16 @@ public class PlatformLoginServiceImpl implements PlatformLoginService {
         }
         //密码 = MD5(用户名+密码)
         String md5info = loginName + password;
-        String realPassword = MD5Util.toMD5(md5info);
+        String realPassword = SecureUtil.md5(md5info);
         if (!realPassword.equals(platformUser.getPassword())) {
             throw new CommonException(ErrorCode.USER_PASSWORD_ERROR);
         }
 
         //更新登录时间
-        platformUser.setLoginTime(DateUtil.getCurrentDate());
+        platformUser.setLoginTime(DateUtil.date());
         platformUserService.modifyUser(platformUser);
         //敏感字段处理
         platformUser.setPassword(null);
         return platformUser;
-    }
-
-    /**
-     * 校验验证码
-     *
-     * @param code           web传输的验证码
-     * @param verCode        session中的验证码
-     * @param generationTime 验证码生成时间
-     */
-    @Override
-    public void checkVerify(String code, String verCode, long generationTime) {
-        if (null == verCode) {
-            throw new CommonException(ErrorCode.USER_VERIFY_ERROR);
-        }
-        String verCodeStr = verCode.toUpperCase();
-        long now = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-
-        //验证失败
-        if (verCodeStr == null || code == null || code.isEmpty() || !verCodeStr.equalsIgnoreCase(code)) {
-            throw new CommonException(ErrorCode.USER_VERIFY_FAIL);
-        } else if ((now - generationTime) / 1000 / 60 > 5) {
-            //5分钟之前验证码无效
-            throw new CommonException(ErrorCode.USER_VERIFY_EXPIRED);
-        }
     }
 }

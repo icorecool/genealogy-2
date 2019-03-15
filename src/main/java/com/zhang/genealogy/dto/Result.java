@@ -1,4 +1,4 @@
-package com.zhang.genealogy.config;
+package com.zhang.genealogy.dto;
 
 
 import com.zhang.genealogy.constant.Constants;

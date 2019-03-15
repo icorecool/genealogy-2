@@ -1,7 +1,7 @@
 package com.zhang.genealogy.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.zhang.genealogy.config.Result;
+import com.zhang.genealogy.dto.Result;
 import com.zhang.genealogy.constant.Constants;
 import com.zhang.genealogy.exception.CommonException;
 import com.zhang.genealogy.exception.ErrorCode;
@@ -76,7 +76,7 @@ public class FileController {
             files.setUrl(realPath);
             files.setCreateShowName(showName);
             files.setCreateUserId(new Long(id));
-            filesService.insert(files);
+            filesService.addFile(files);
             //返回参数
             Result result = new Result();
             result.addObject("file", files);

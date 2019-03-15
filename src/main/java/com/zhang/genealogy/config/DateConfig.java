@@ -1,9 +1,7 @@
 package com.zhang.genealogy.config;
 
 
-import com.zhang.genealogy.exception.CommonException;
-import com.zhang.genealogy.exception.ErrorCode;
-import com.zhang.genealogy.util.DateUtil;
+import cn.hutool.core.date.DateUtil;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -27,21 +25,8 @@ public class DateConfig implements Converter<String, Date> {
         String value = source.trim();
         if ("".equals(value)) {
             return null;
-        }
-        if (source.matches("^\\d{4}/\\d{1,2}$")) {
-            //"yyyy/MM"
-            return DateUtil.str2Date(source, DateUtil.DEFAULT_DATE_PATTERN_YEAR_MONTH);
-        } else if (source.matches("^\\d{4}/\\d{1,2}/\\d{1,2}$")) {
-            //"yyyy/MM/dd"
-            return DateUtil.str2Date(source, DateUtil.DEFAULT_DATE_PATTERN);
-        } else if (source.matches("^\\d{4}/\\d{1,2}/\\d{1,2} {1}\\d{1,2}:\\d{1,2}$")) {
-            //"yyyy/MM/dd hh:mm"
-            return DateUtil.str2Date(source, DateUtil.DEFAULT_DATE_PATTERN_MINUTE);
-        } else if (source.matches("^\\d{4}/\\d{1,2}/\\d{1,2} {1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")) {
-            //"yyyy/MM/dd hh:mm:ss"
-            return DateUtil.str2Date(source, DateUtil.DEFAULT_DATE_PATTERN_DETAIL);
         } else {
-            throw new CommonException(ErrorCode.PARSE_DATE_ERROR, source);
+            return DateUtil.parse(source);
         }
     }
 

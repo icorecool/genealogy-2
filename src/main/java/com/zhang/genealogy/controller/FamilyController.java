@@ -1,7 +1,7 @@
 package com.zhang.genealogy.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.zhang.genealogy.config.Result;
+import com.zhang.genealogy.dto.Result;
 import com.zhang.genealogy.dto.FamilyFormDTO;
 import com.zhang.genealogy.exception.CommonException;
 import com.zhang.genealogy.exception.ErrorCode;

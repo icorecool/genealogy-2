@@ -1,5 +1,6 @@
 package com.zhang.genealogy.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhang.genealogy.constant.Constants;
@@ -7,7 +8,6 @@ import com.zhang.genealogy.dao.FilesDAO;
 import com.zhang.genealogy.model.Files;
 import com.zhang.genealogy.qb.FilesQB;
 import com.zhang.genealogy.service.FilesService;
-import com.zhang.genealogy.util.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +36,8 @@ public class FilesServiceImpl implements FilesService {
      * @return
      */
     @Override
-    public int insert(Files files) {
-        files.setCreateTime(DateUtil.getCurrentDate());
+    public int addFile(Files files) {
+        files.setCreateTime(DateUtil.date());
         files.setDeleteStatus(Constants.DELETE_STATUS_OK);
         return filesDAO.insert(files);
     }

@@ -1,5 +1,6 @@
 package com.zhang.genealogy.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhang.genealogy.constant.Constants;
@@ -8,7 +9,6 @@ import com.zhang.genealogy.dto.FamilyFormDTO;
 import com.zhang.genealogy.model.Family;
 import com.zhang.genealogy.qb.FamilyQB;
 import com.zhang.genealogy.service.FamilyService;
-import com.zhang.genealogy.util.DateUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -74,9 +74,9 @@ public class FamilyServiceImpl implements FamilyService {
      * @param family
      * @return
      */
-    public int addFamily(Family family) {
-        family.setCreateTime(DateUtil.getCurrentDate());
-        family.setUpdateTime(DateUtil.getCurrentDate());
+    private int addFamily(Family family) {
+        family.setCreateTime(DateUtil.date());
+        family.setUpdateTime(DateUtil.date());
         family.setDeleteStatus(Constants.DELETE_STATUS_OK);
         return familyDAO.insert(family);
     }

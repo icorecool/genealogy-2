@@ -18,13 +18,4 @@ public interface PlatformLoginService {
      * @return
      */
     PlatformUser login(String loginName, String password);
-
-    /**
-     * 校验验证码
-     *
-     * @param code           web传输的验证码
-     * @param verCode        session中的验证码
-     * @param generationTime 验证码生成时间
-     */
-    void checkVerify(String code, String verCode, long generationTime);
 }

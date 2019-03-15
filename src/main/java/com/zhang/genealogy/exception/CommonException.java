@@ -71,6 +71,7 @@ public class CommonException extends RuntimeException {
         return code;
     }
 
+    @Override
     public String getMessage() {
         return message;
     }
