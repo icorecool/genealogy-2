@@ -24,28 +24,29 @@
     <div class="myapp-login-logo-block  tpl-login-max">
         <div class="myapp-login-logo-text">
             <div class="myapp-login-logo-text">
-                <span> 家谱</span>
+                Amaze UI<span> Login</span> <i class="am-icon-skyatlas"></i>
 
             </div>
         </div>
 
         <div class="login-font">
-            <i>泰安市良庄镇 </i> & <span> 18667038619</span>
+            <i>Log In </i> or <span> Sign Up</span>
         </div>
+
         <div class="am-u-sm-10 login-am-center">
-            <form class="am-form">
+            <div class="am-form">
                 <fieldset>
                     <div class="am-form-group">
-                        <input type="email" class="" id="doc-ipt-email-1" placeholder="用户名">
+                        <input type="email" class="" id="doc-ipt-email-1" placeholder="输入电子邮件"/>
                     </div>
                     <div class="am-form-group">
-                        <input type="password" class="" id="doc-ipt-pwd-1" placeholder="密码">
+                        <input type="password" class="" id="doc-ipt-pwd-1" placeholder="设置个密码吧"/>
                     </div>
                     <p>
-                        <button type="submit" class="am-btn am-btn-default">登录</button>
+                        <button type="submit" onclick="login()" class="am-btn am-btn-default">登录</button>
                     </p>
                 </fieldset>
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -53,6 +54,32 @@
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/app.js"></script>
+<script src="layui/layui.all.js"></script>
 </body>
+
+<script>
+
+    // 登陆
+    function login() {
+        var loginParam = {};
+        loginParam.loginName = $("#doc-ipt-email-1").val();
+        loginParam.password = $("#doc-ipt-pwd-1").val();
+        $.ajax({
+            url: '/platformUser/login',
+            context: loginParam,
+            success: function (result) {
+                if (result.code != 0) {
+                    layer.msg(result.message);
+                    console.log(result)
+                    setTimeout(function () {
+                        $('.am-alert').alert('close');
+                    }, 2000);
+
+
+                }
+            }
+        });
+    }
+</script>
 
 </html>

@@ -45,7 +45,7 @@ public class PlatformLoginController {
      */
     @RequestMapping("/login")
     @ResponseBody
-    public Result login(HttpServletRequest request, String loginName, String password, String code) {
+    public Result login(HttpServletRequest request, String loginName, String password) {
         //参数不正确
         if (null == loginName) {
             throw new CommonException(ErrorCode.PARAM_IS_EMPTY, "登录名");
@@ -64,9 +64,6 @@ public class PlatformLoginController {
         session.setAttribute(Constants.PLATFORM_USER_ID, platformUser.getId());
         session.setAttribute(Constants.PLATFORM_USER_TYPE, platformUser.getUserType());
         session.setAttribute(Constants.PLATFORM_USER_SHOW_NAME, platformUser.getUserShowName());
-        // 验证成功，删除存储的验证码
-        session.removeAttribute("verCode");
-        session.removeAttribute("codeTime");
 
         Result resultout = new Result();
         resultout.addObject("platformUser", platformUser);
