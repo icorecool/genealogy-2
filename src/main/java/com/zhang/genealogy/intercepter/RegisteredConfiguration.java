@@ -31,8 +31,6 @@ public class RegisteredConfiguration implements WebMvcConfigurer {
         // 排除路径
         loginRegistry.excludePathPatterns("/");
         loginRegistry.excludePathPatterns("/error");
-        loginRegistry.excludePathPatterns("/platformUser/getVerify");
-        loginRegistry.excludePathPatterns("/platformUser/checkVerify");
         loginRegistry.excludePathPatterns("/platformUser/login");
         loginRegistry.excludePathPatterns("/platformUser/loginout");
         loginRegistry.excludePathPatterns(Constants.PAGE_PATH + "**");

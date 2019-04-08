@@ -11,15 +11,6 @@ public class Constants {
     // 操作成功
     public final static String RESULT_OK_MESSAGE = "操作成功";
 
-    // 分隔符
-    public final static String COMMON_SEPARATOR = ",";
-
-    // 冒号分隔符
-    public final static String COLON_SEPARATOR = ":";
-
-    // 通用匹配符
-    public final static String MATCHING_CHARACTER = "*";
-
     // 通用连接符
     public final static String COMMON_CONNECTOR = "_";
 
