@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zhang.genealogy.dao.PersonnelDAO">
+
+    <resultMap id="BaseResultMap" type="com.zhang.genealogy.model.Personnel">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="nickname" property="nickName" jdbcType="VARCHAR"/>
+        <result column="zi" property="zi" jdbcType="VARCHAR"/>
+        <result column="bei" property="bei" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="INTEGER"/>
+        <result column="parentsId" property="parentsId" jdbcType="INTEGER"/>
+        <result column="coupleId" property="coupleid" jdbcType="INTEGER"/>
+        <result column="coupleType" property="coupletype" jdbcType="INTEGER"/>
+        <result column="generation" property="generation" jdbcType="INTEGER"/>
+        <result column="ranking" property="ranking" jdbcType="INTEGER"/>
+        <result column="is_living" property="isLiving" jdbcType="INTEGER"/>
+        <result column="birth_date" property="birthDate" jdbcType="DATE"/>
+        <result column="death_date" property="deathDate" jdbcType="DATE"/>
+        <result column="degree" property="degree" jdbcType="INTEGER"/>
+        <result column="university" property="university" jdbcType="VARCHAR"/>
+        <result column="work" property="work" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="image_url" property="imageUrl" jdbcType="VARCHAR"/>
+        <result column="delete_status" property="deleteStatus" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="update_time" property="updateTime" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      id, name, nickname, zi, bei, gender, parentsId, coupleId, coupleType, generation,
+      ranking, is_living, birth_date, death_date, degree, university, work, phone, address,
+      remark, image_url, delete_status, create_time, update_time
+    </sql>
+
+    <select id="queryList" resultMap="BaseResultMap" parameterType="com.zhang.genealogy.model.Personnel">
+        select
+        <include refid="Base_Column_List"/>
+        from personnel
+        <where>
+            <if test="name != null and name !=''">
+                and name = #{name}
+            </if>
+            <if test="generation != null">
+                and generation = #{generation}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from personnel
+        where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.zhang.genealogy.model.Personnel" useGeneratedKeys="true" keyProperty="id">
+        insert into personnel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="zi != null">
+                zi,
+            </if>
+            <if test="bei != null">
+                bei,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="parentsid != null">
+                parentsId,
+            </if>
+            <if test="coupleid != null">
+                coupleId,
+            </if>
+            <if test="coupletype != null">
+                coupleType,
+            </if>
+            <if test="generation != null">
+                generation,
+            </if>
+            <if test="ranking != null">
+                ranking,
+            </if>
+            <if test="isLiving != null">
+                is_living,
+            </if>
+            <if test="birthDate != null">
+                birth_date,
+            </if>
+            <if test="deathDate != null">
+                death_date,
+            </if>
+            <if test="degree != null">
+                degree,
+            </if>
+            <if test="university != null">
+                university,
+            </if>
+            <if test="work != null">
+                work,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="imageUrl != null">
+                image_url,
+            </if>
+            <if test="deleteStatus != null">
+                delete_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="zi != null">
+                #{zi,jdbcType=VARCHAR},
+            </if>
+            <if test="bei != null">
+                #{bei,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="parentsid != null">
+                #{parentsid,jdbcType=INTEGER},
+            </if>
+            <if test="coupleid != null">
+                #{coupleid,jdbcType=INTEGER},
+            </if>
+            <if test="coupletype != null">
+                #{coupletype,jdbcType=INTEGER},
+            </if>
+            <if test="generation != null">
+                #{generation,jdbcType=INTEGER},
+            </if>
+            <if test="ranking != null">
+                #{ranking,jdbcType=INTEGER},
+            </if>
+            <if test="isLiving != null">
+                #{isLiving,jdbcType=INTEGER},
+            </if>
+            <if test="birthDate != null">
+                #{birthDate,jdbcType=DATE},
+            </if>
+            <if test="deathDate != null">
+                #{deathDate,jdbcType=DATE},
+            </if>
+            <if test="degree != null">
+                #{degree,jdbcType=INTEGER},
+            </if>
+            <if test="university != null">
+                #{university,jdbcType=VARCHAR},
+            </if>
+            <if test="work != null">
+                #{work,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="imageUrl != null">
+                #{imageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteStatus != null">
+                #{deleteStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=DATE},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

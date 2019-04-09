@@ -40,7 +40,6 @@ public class PlatformLoginController {
      * @param request   请求
      * @param loginName 登录名
      * @param password  密码
-     * @param code      验证码
      * @return
      */
     @RequestMapping("/login")

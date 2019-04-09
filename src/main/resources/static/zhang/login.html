@@ -8,6 +8,7 @@
     <meta name="viewport"
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="shortcut icon" href="./images/favicon.png"/>
     <link rel="stylesheet" href="./css/font.css">
     <link rel="stylesheet" href="./css/xadmin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
@@ -46,8 +47,9 @@
                     data: loginParam,
                     success: function (result) {
                         if (result.code == 0) {
-                            location.href = "/zhang/index.html";
-                            $.cookie('userinfo', result.data, {expires: 7});
+                            setCookie('username', result.data.platformUser.loginName);
+                            setCookie('usertype', result.data.platformUser.userType);
+                            location.href = "/zhang/";
                         } else {
                             layer.msg(result.message);
                         }

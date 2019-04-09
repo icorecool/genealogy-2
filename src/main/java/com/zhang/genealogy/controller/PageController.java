@@ -23,4 +23,14 @@ public class PageController {
     public String login() {
         return "redirect:" + Constants.PAGE_PATH + "login.html";
     }
+
+    /**
+     * 首页跳转
+     *
+     * @return
+     */
+    @RequestMapping("/zhang")
+    public String zhang() {
+        return "forward:" + Constants.PAGE_PATH + "index.html";
+    }
 }

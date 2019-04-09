@@ -1,6 +1,6 @@
 package com.zhang.genealogy.dao;
 
-import com.zhang.genealogy.model.Family;
+import com.zhang.genealogy.model.Personnel;
 
 import java.util.List;
 
@@ -10,15 +10,15 @@ import java.util.List;
  * @Auther: zhangchao
  * @Date: 2019/3/4 10:21
  */
-public interface FamilyDAO {
+public interface PersonnelDAO {
 
     /**
      * 查询家人列表
      *
-     * @param family
+     * @param personnel
      * @return
      */
-    List<Family> queryList(Family family);
+    List<Personnel> queryList(Personnel personnel);
 
     /**
      * 根据主键ID查询家人信息
@@ -26,13 +26,13 @@ public interface FamilyDAO {
      * @param id
      * @return
      */
-    Family queryById(Long id);
+    Personnel queryById(Long id);
 
     /**
      * 插入家人信息
      *
-     * @param family
+     * @param personnel
      * @return
      */
-    int insert(Family family);
+    int insert(Personnel personnel);
 }

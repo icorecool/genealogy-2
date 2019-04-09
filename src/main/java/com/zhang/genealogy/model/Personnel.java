@@ -13,7 +13,8 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class Family {
+public class Personnel {
+
 
     /**
      * 主键自增
@@ -31,11 +32,6 @@ public class Family {
     private String nickName;
 
     /**
-     * 性别：0-女、1-男
-     */
-    private Integer gender;
-
-    /**
      * 字
      */
     private String zi;
@@ -46,9 +42,24 @@ public class Family {
     private String bei;
 
     /**
-     * 父母ID-默认存储的是父亲ID
+     * 性别：0-女、1-男
+     */
+    private Integer gender;
+
+    /**
+     * 父母ID
      */
     private Long parentsId;
+
+    /**
+     * 配偶ID
+     */
+    private Integer coupleid;
+
+    /**
+     * 配偶类型：0-女、1-男
+     */
+    private Integer coupletype;
 
     /**
      * 世代
@@ -64,16 +75,15 @@ public class Family {
      * 是否在世：0-在世；1-去世
      */
     private Integer isLiving;
-
     /**
      * 出生日期
      */
-    private Date birthTime;
+    private Date birthDate;
 
     /**
      * 死亡日期
      */
-    private Date deathTime;
+    private Date deathDate;
 
     /**
      * 学位
@@ -104,11 +114,6 @@ public class Family {
      * 备注
      */
     private String remark;
-
-    /**
-     * 丈夫ID
-     */
-    private Long husbandId;
 
     /**
      * 头像URL

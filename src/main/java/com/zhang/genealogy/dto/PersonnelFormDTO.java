@@ -1,6 +1,6 @@
 package com.zhang.genealogy.dto;
 
-import com.zhang.genealogy.model.Family;
+import com.zhang.genealogy.model.Personnel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,15 +9,15 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class FamilyFormDTO {
+public class PersonnelFormDTO {
 
     /**
      * 丈夫
      */
-    Family husband;
+    Personnel husband;
 
     /**
      * 妻子
      */
-    Family wife;
+    Personnel wife;
 }
