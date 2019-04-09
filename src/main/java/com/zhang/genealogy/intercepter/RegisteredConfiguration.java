@@ -26,14 +26,20 @@ public class RegisteredConfiguration implements WebMvcConfigurer {
         // 注册拦截器
         LoginInterceptor loginInterceptor = new LoginInterceptor();
         InterceptorRegistration loginRegistry = registry.addInterceptor(loginInterceptor);
+
         // 拦截路径
         loginRegistry.addPathPatterns("/**");
+
         // 排除路径
         loginRegistry.excludePathPatterns("/");
         loginRegistry.excludePathPatterns("/error");
         loginRegistry.excludePathPatterns("/platformUser/login");
         loginRegistry.excludePathPatterns("/platformUser/loginout");
         loginRegistry.excludePathPatterns(Constants.PAGE_PATH + "**");
+
+        //百度路径
+        loginRegistry.excludePathPatterns("/api/**");
+        loginRegistry.excludePathPatterns("/wikiui/**");
 
     }
 }
