@@ -31,6 +31,6 @@ public class PageController {
      */
     @RequestMapping("/zhang")
     public String zhang() {
-        return "forward:" + Constants.PAGE_PATH + "index.html";
+        return "redirect:" + Constants.PAGE_PATH + "index.html";
     }
 }

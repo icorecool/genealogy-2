@@ -17,4 +17,19 @@ public interface PersonnelService {
      */
     List<Personnel> queryPage(Personnel personnel);
 
+    /**
+     * 增加家人
+     *
+     * @param personnel
+     * @return
+     */
+    int add(Personnel personnel);
+
+    /**
+     * 获取家人信息
+     *
+     * @param id
+     * @return
+     */
+    Personnel queryById(Long id);
 }

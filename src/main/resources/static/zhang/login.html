@@ -47,7 +47,7 @@
                     data: loginParam,
                     success: function (result) {
                         if (result.code == 0) {
-                            setCookie('username', result.data.platformUser.loginName);
+                            setCookie('username', result.data.platformUser.userShowName);
                             setCookie('usertype', result.data.platformUser.userType);
                             location.href = "/zhang/";
                         } else {

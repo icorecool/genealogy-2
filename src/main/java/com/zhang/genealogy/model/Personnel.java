@@ -49,17 +49,17 @@ public class Personnel {
     /**
      * 父母ID
      */
-    private Long parentsId;
+    private Long parentId;
 
     /**
      * 配偶ID
      */
-    private Integer coupleid;
+    private Integer coupleId;
 
     /**
      * 配偶类型：0-女、1-男
      */
-    private Integer coupletype;
+    private Integer coupleType;
 
     /**
      * 世代
@@ -78,12 +78,12 @@ public class Personnel {
     /**
      * 出生日期
      */
-    private Date birthDate;
+    private String birthDate;
 
     /**
      * 死亡日期
      */
-    private Date deathDate;
+    private String deathDate;
 
     /**
      * 学位

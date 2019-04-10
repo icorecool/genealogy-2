@@ -12,14 +12,14 @@
         <result column="zi" property="zi" jdbcType="VARCHAR"/>
         <result column="bei" property="bei" jdbcType="VARCHAR"/>
         <result column="gender" property="gender" jdbcType="INTEGER"/>
-        <result column="parentsId" property="parentsId" jdbcType="INTEGER"/>
-        <result column="coupleId" property="coupleid" jdbcType="INTEGER"/>
-        <result column="coupleType" property="coupletype" jdbcType="INTEGER"/>
+        <result column="parentsId" property="parentId" jdbcType="INTEGER"/>
+        <result column="coupleId" property="coupleId" jdbcType="INTEGER"/>
+        <result column="coupleType" property="coupleType" jdbcType="INTEGER"/>
         <result column="generation" property="generation" jdbcType="INTEGER"/>
         <result column="ranking" property="ranking" jdbcType="INTEGER"/>
         <result column="is_living" property="isLiving" jdbcType="INTEGER"/>
-        <result column="birth_date" property="birthDate" jdbcType="DATE"/>
-        <result column="death_date" property="deathDate" jdbcType="DATE"/>
+        <result column="birth_date" property="birthDate" jdbcType="VARCHAR"/>
+        <result column="death_date" property="deathDate" jdbcType="VARCHAR"/>
         <result column="degree" property="degree" jdbcType="INTEGER"/>
         <result column="university" property="university" jdbcType="VARCHAR"/>
         <result column="work" property="work" jdbcType="VARCHAR"/>
@@ -33,7 +33,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-      id, name, nickname, zi, bei, gender, parentsId, coupleId, coupleType, generation,
+      id, name, nickname, zi, bei, gender, parentId, coupleId, coupleType, generation,
       ranking, is_living, birth_date, death_date, degree, university, work, phone, address,
       remark, image_url, delete_status, create_time, update_time
     </sql>
@@ -44,7 +44,7 @@
         from personnel
         <where>
             <if test="name != null and name !=''">
-                and name = #{name}
+                and name like CONCAT('%',#{name},'%')
             </if>
             <if test="generation != null">
                 and generation = #{generation}
@@ -69,7 +69,7 @@
             <if test="name != null">
                 name,
             </if>
-            <if test="nickname != null">
+            <if test="nickName != null">
                 nickname,
             </if>
             <if test="zi != null">
@@ -81,13 +81,13 @@
             <if test="gender != null">
                 gender,
             </if>
-            <if test="parentsid != null">
-                parentsId,
+            <if test="parentId != null">
+                parentId,
             </if>
-            <if test="coupleid != null">
+            <if test="coupleId != null">
                 coupleId,
             </if>
-            <if test="coupletype != null">
+            <if test="coupleType != null">
                 coupleType,
             </if>
             <if test="generation != null">
@@ -143,8 +143,8 @@
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
             </if>
-            <if test="nickname != null">
-                #{nickname,jdbcType=VARCHAR},
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
             </if>
             <if test="zi != null">
                 #{zi,jdbcType=VARCHAR},
@@ -155,14 +155,14 @@
             <if test="gender != null">
                 #{gender,jdbcType=INTEGER},
             </if>
-            <if test="parentsid != null">
-                #{parentsid,jdbcType=INTEGER},
+            <if test="parentId != null">
+                #{parentId,jdbcType=INTEGER},
             </if>
-            <if test="coupleid != null">
-                #{coupleid,jdbcType=INTEGER},
+            <if test="coupleId != null">
+                #{coupleId,jdbcType=INTEGER},
             </if>
-            <if test="coupletype != null">
-                #{coupletype,jdbcType=INTEGER},
+            <if test="coupleType != null">
+                #{coupleType,jdbcType=INTEGER},
             </if>
             <if test="generation != null">
                 #{generation,jdbcType=INTEGER},
@@ -174,10 +174,10 @@
                 #{isLiving,jdbcType=INTEGER},
             </if>
             <if test="birthDate != null">
-                #{birthDate,jdbcType=DATE},
+                #{birthDate,jdbcType=VARCHAR},
             </if>
             <if test="deathDate != null">
-                #{deathDate,jdbcType=DATE},
+                #{deathDate,jdbcType=VARCHAR},
             </if>
             <if test="degree != null">
                 #{degree,jdbcType=INTEGER},

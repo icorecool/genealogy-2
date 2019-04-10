@@ -37,4 +37,39 @@ public class PersonnelController {
         result.addObject("list", personnelList);
         return result;
     }
+
+    /**
+     * 增加家人
+     *
+     * @param personnel
+     * @return
+     */
+    @RequestMapping("/add")
+    @ResponseBody
+    public Result add(Personnel personnel) {
+        personnelService.add(personnel);
+        Result result = new Result();
+        return result;
+    }
+
+
+    /**
+     * 获取家人信息
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/queryById")
+    @ResponseBody
+    public Result queryById(Long id) {
+        Result result = new Result();
+        if (id == null) {
+            return result;
+        }
+        Personnel personnel = personnelService.queryById(id);
+        result.addObject("personnel", personnel);
+        return result;
+    }
+
+
 }

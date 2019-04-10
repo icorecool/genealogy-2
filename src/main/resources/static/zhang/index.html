@@ -35,7 +35,7 @@
             <a href="javascript:;" id="username"></a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
                 <dd><a onclick="javascript:layer.msg('未完待续，敬请期待')">个人信息</a></dd>
-                <dd><a href="/platformUser/loginout">退出</a></dd>
+                <dd><a href="javascript: quit()">退出</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item to-index"><a href="./index.html">前台首页</a></li>
@@ -127,6 +127,15 @@
         }
         $("#username").text(name);
     });
+
+    /**
+     * 退出
+     */
+    function quit() {
+        deleteCookie("username");
+        deleteCookie("usertype");
+        location.href = "/platformUser/loginout";
+    }
 </script>
 </body>
 </html>

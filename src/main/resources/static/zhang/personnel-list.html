@@ -30,19 +30,21 @@
 </div>
 <div class="x-body">
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-            <input type="text" name="name" placeholder="姓名" autocomplete="off" class="layui-input">
+        <div class="layui-form layui-col-md12 x-so">
+            <input type="text" name="name" id="name" placeholder="姓名" autocomplete="off" class="layui-input">
 
-            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-            <button class="layui-btn" onclick="x_admin_show('添加用户','./member-add.html',600,400)"><i
-                    class="layui-icon"></i>添加
+            <button class="layui-btn" onclick="searchPageList()"><i class="layui-icon">&#xe615;</i></button>
+
+            <button class="layui-btn" id="add" onclick="x_admin_show('添加人员','./personnel-add.html',800,600)">
+                <i class="layui-icon"></i>添加
             </button>
 
             <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
                href="javascript:location.replace(location.href);" title="刷新">
                 <span id="total"></span>
-                <i class="iconfont" style="line-height:30px">&#xe6aa;</i></a>
-        </form>
+                <i class="iconfont" style="line-height:30px">&#xe6aa;</i>
+            </a>
+        </div>
     </div>
     <table class="layui-table">
         <thead>
@@ -52,7 +54,6 @@
             <th style="text-align: center;"><b>性别</b></th>
             <th style="text-align: center;"><b>排行</b></th>
             <th style="text-align: center;"><b>出生年月</b></th>
-            <th style="text-align: center;"><b>年龄</b></th>
             <th style="text-align: center;"><b>居住地址</b></th>
             <th style="text-align: center;"><b>联系方式</b></th>
             <th style="text-align: center;"><b>世代</b></th>
@@ -67,10 +68,16 @@
 
 </div>
 <script>
+    var type;
+
     /**
      * 页面加载完调用
      */
     $(function () {
+        type = getCookie('usertype');
+        if (type != 0) {
+            $("#add").remove()
+        }
         searchPageList();
     });
 
@@ -84,7 +91,6 @@
             url: '/personnel/list',
             data: search,
             success: function (result) {
-                console.log(result.data)
                 if (result.code == 0) {
                     //数据处理
                     var list = result.data.list;
@@ -101,73 +107,62 @@
      * 添加行
      */
     function addtr(list) {
+        $("#tbody").html('');
         for (var i = 0; i < list.length; i++) {
             var personnel = list[i];
-            $("#tbody").append(
-                '<tr>' +
-                '<td>' + personnel.name + '</td>' +
-                '<td>' + personnel.bei + '</td>' +
-                '<td>' + personnel.gender + '</td>' +
-                '<td>' + personnel.ranking + '</td>' +
-                '<td>' + personnel.birthDate + '</td>' +
-                '<td>' + personnel.age + '</td>' +
-                '<td>' + personnel.address + '</td>' +
-                '<td>' + personnel.phone + '</td>' +
-                '<td>' + personnel.generation + '</td>' +
-                '<td>' + personnel.remark + '</td>' +
-                '<td data-field="10" data-key="1-0-10" style="text-align: center;" data-off="true" class="layui-table-col-special">' +
-                '<div class="layui-table-cell laytable-cell-1-0-10">' +
-                '<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view">查看人员</a>' +
-                '<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view">查看家庭</a>' +
-                '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>' +
-                '<a class="layui-btn layui-btn-radius layui-btn-warm" lay-event="add">新增子女</a>' +
-                '<a class="layui-btn layui-btn-radius layui-btn-warm" lay-event="add">新增配偶</a>' +
-                '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></div>' +
-                '</td>' +
-                '</tr>')
+            var gender = (personnel.gender == 0) ? "女" : "男";
+            if (0 == type) {//管理员权限
+                $("#tbody").append(
+                    '<tr>' +
+                    '<td>' + personnel.name + '</td>' +
+                    '<td>' + personnel.bei + '</td>' +
+                    '<td>' + gender + '</td>' +
+                    '<td>' + personnel.ranking + '</td>' +
+                    '<td>' + personnel.birthDate + '</td>' +
+                    '<td>' + personnel.address + '</td>' +
+                    '<td>' + personnel.phone + '</td>' +
+                    '<td>' + personnel.generation + '</td>' +
+                    '<td>' + personnel.remark + '</td>' +
+                    '<td data-field="10" data-key="1-0-10" style="text-align: center;" data-off="true" class="layui-table-col-special">' +
+                    '<div class="layui-table-cell laytable-cell-1-0-10">' +
+                    '<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view" onclick="view(this, ' + personnel.id + ')">查看人员</a>' +
+                    '<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view">查看家庭</a>' +
+                    '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>' +
+                    '<a class="layui-btn layui-btn-radius layui-btn-warm" lay-event="add">新增子女</a>' +
+                    '<a class="layui-btn layui-btn-radius layui-btn-warm" lay-event="add">新增配偶</a>' +
+                    '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></div>' +
+                    '</td>' +
+                    '</tr>')
+            } else {
+                $("#tbody").append(
+                    '<tr>' +
+                    '<td>' + personnel.name + '</td>' +
+                    '<td>' + personnel.bei + '</td>' +
+                    '<td>' + gender + '</td>' +
+                    '<td>' + personnel.ranking + '</td>' +
+                    '<td>' + personnel.birthDate + '</td>' +
+                    '<td>' + personnel.address + '</td>' +
+                    '<td>' + personnel.phone + '</td>' +
+                    '<td>' + personnel.generation + '</td>' +
+                    '<td>' + personnel.remark + '</td>' +
+                    '<td data-field="10" data-key="1-0-10" style="text-align: center;" data-off="true" class="layui-table-col-special">' +
+                    '<div class="layui-table-cell laytable-cell-1-0-10">' +
+                    '<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view">查看人员</a>' +
+                    '<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view">查看家庭</a></div>' +
+                    '</td>' +
+                    '</tr>')
+            }
         }
     }
 
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
-        });
-    });
-
-    /*用户-停用*/
-    function member_stop(obj, id) {
-        layer.confirm('确认要停用吗？', function (index) {
-
-            if ($(obj).attr('title') == '启用') {
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title', '停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!', {icon: 5, time: 1000});
-
-            } else {
-                $(obj).attr('title', '启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!', {icon: 5, time: 1000});
-            }
-
-        });
+    /*浏览*/
+    function view(obj, id) {
+        x_admin_show('查看人员', './personnel-add.html?page=view&id=' + id, 800, 600)
     }
 
-    /*用户-删除*/
-    function member_del(obj, id) {
+    /*删除*/
+    function del(obj, id) {
+        alert(id)
         layer.confirm('确认要删除吗？', function (index) {
             //发异步删除数据
             $(obj).parents("tr").remove();
@@ -175,17 +170,6 @@
         });
     }
 
-
-    function delAll(argument) {
-
-        var data = tableCheck.getData();
-
-        layer.confirm('确认要删除吗？' + data, function (index) {
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-    }
 </script>
 </body>
 </html>
