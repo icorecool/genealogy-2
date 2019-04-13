@@ -57,11 +57,6 @@ public class Personnel {
     private Integer coupleId;
 
     /**
-     * 配偶类型：0-女、1-男
-     */
-    private Integer coupleType;
-
-    /**
      * 世代
      */
     private Integer generation;

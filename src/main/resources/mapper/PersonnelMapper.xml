@@ -14,7 +14,6 @@
         <result column="gender" property="gender" jdbcType="INTEGER"/>
         <result column="parentsId" property="parentId" jdbcType="INTEGER"/>
         <result column="coupleId" property="coupleId" jdbcType="INTEGER"/>
-        <result column="coupleType" property="coupleType" jdbcType="INTEGER"/>
         <result column="generation" property="generation" jdbcType="INTEGER"/>
         <result column="ranking" property="ranking" jdbcType="INTEGER"/>
         <result column="is_living" property="isLiving" jdbcType="INTEGER"/>
@@ -33,7 +32,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-      id, name, nickname, zi, bei, gender, parentId, coupleId, coupleType, generation,
+      id, name, nickname, zi, bei, gender, parentId, coupleId, generation,
       ranking, is_living, birth_date, death_date, degree, university, work, phone, address,
       remark, image_url, delete_status, create_time, update_time
     </sql>
@@ -86,9 +85,6 @@
             </if>
             <if test="coupleId != null">
                 coupleId,
-            </if>
-            <if test="coupleType != null">
-                coupleType,
             </if>
             <if test="generation != null">
                 generation,
@@ -160,9 +156,6 @@
             </if>
             <if test="coupleId != null">
                 #{coupleId,jdbcType=INTEGER},
-            </if>
-            <if test="coupleType != null">
-                #{coupleType,jdbcType=INTEGER},
             </if>
             <if test="generation != null">
                 #{generation,jdbcType=INTEGER},
