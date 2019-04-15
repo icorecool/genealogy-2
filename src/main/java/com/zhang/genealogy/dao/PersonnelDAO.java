@@ -35,4 +35,20 @@ public interface PersonnelDAO {
      * @return
      */
     int insert(Personnel personnel);
+
+    /**
+     * 删除家人信息
+     *
+     * @param id
+     * @return
+     */
+    int delById(Long id);
+
+    /**
+     * 更新家人信息
+     *
+     * @param personnel
+     * @return
+     */
+    int updateById(Personnel personnel);
 }

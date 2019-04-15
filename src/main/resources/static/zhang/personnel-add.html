@@ -23,8 +23,10 @@
 
 <body>
 <div class="x-body">
-    <form class="layui-form">
+    <form name="form" class="layui-form">
+        <input id="id" name="id" hidden>
 
+        <!-- 增加图片头像上传 -->
         <div class="layui-form-item">
             <label class="layui-form-label">姓名<span class="x-red">*</span></label>
             <div class="layui-input-inline">
@@ -33,7 +35,7 @@
 
             <label class="layui-form-label">性别<span class="x-red">*</span></label>
             <div class="layui-input-inline">
-                <input type="radio" id="gender1" name="gender" value="1" title="男" checked="checked">
+                <input type="radio" id="gender1" name="gender" value="1" title="男" checked="">
                 <input type="radio" id="gender0" name="gender" value="0" title="女">
             </div>
         </div>
@@ -43,11 +45,16 @@
             <div class="layui-input-inline">
                 <input type="text" class="layui-input" id="zi" name="zi">
             </div>
-            <label class="layui-form-label">父亲姓名</label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">配偶姓名</label>
             <div class="layui-input-inline">
-                <blockquote class="layui-text">
-                    <a href="javascript:;" target="_blank" id="parentsName"></a>
-                </blockquote>
+                <input href="javascript:;" target="_blank" id="coupleName" class="layui-input" disabled>
+                <input type="text" class="layui-input" id="coupleId" name="coupleId" style="display: none">
+            </div>
+            <label class="layui-form-label">父母姓名</label>
+            <div class="layui-input-inline">
+                <input href="javascript:;" target="_blank" id="parentName" class="layui-input" disabled>
                 <input type="text" class="layui-input" id="parentId" name="parentId" style="display: none">
             </div>
         </div>
@@ -67,14 +74,14 @@
             <div class="layui-input-inline">
                 <select id="ranking" name="ranking">
                     <option value="" selected=""></option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
+                    <option value="1">老大</option>
+                    <option value="2">老二</option>
+                    <option value="3">老三</option>
+                    <option value="4">老四</option>
+                    <option value="5">老五</option>
+                    <option value="6">老六</option>
+                    <option value="7">老七</option>
+                    <option value="8">老八</option>
                 </select>
             </div>
 
@@ -124,23 +131,71 @@
             </div>
 
         </div>
+
         <div class="layui-form-item" id="add">
-            <button class="layui-btn" lay-filter="add" lay-submit="">增加</button>
+            <button class="layui-btn" lay-filter="submit" lay-submit="">确定</button>
         </div>
+
     </form>
 </div>
 <script>
-    var page = getQueryString('page');
-    var id = getQueryString('id');
-
     /**
-     * 初始化
+     * 提交
      */
-    //TODO 继续做查看页面
-    $(function () {
+    layui.use(['form', 'layer'], function () {
+        var page = getQueryString('page');
+        var id = getQueryString('id');
+        var parentId = getQueryString('parentId');
+        var coupleId = getQueryString('coupleId');
+        $ = layui.jquery;
+        var form = layui.form
+            , layer = layui.layer;
+
+        //按钮控制
         if (page != 'add' && page != 'edit') {
-            //删除增加按钮
+            //删除确定按钮
             $("#add").remove();
+        }
+
+        //新增时页面内容展示
+        if (parentId != null) {
+            var query = {};
+            query.id = parentId;
+            $.ajax({
+                url: '/personnel/queryById',
+                data: query,
+                success: function (result) {
+                    if (result.code == 0) {
+                        $("#parentName").val(result.data.personnel.name);
+                        $("#parentId").val(result.data.personnel.id);
+                        form.render(); //更新全部
+                    } else {
+                        layer.msg(result.message);
+                    }
+                }
+            });
+        }
+
+        if (coupleId != null) {
+            var query = {};
+            query.id = coupleId;
+            $.ajax({
+                url: '/personnel/queryById',
+                data: query,
+                success: function (result) {
+                    if (result.code == 0) {
+                        $("#coupleName").val(result.data.personnel.name);
+                        $("#coupleId").val(result.data.personnel.id);
+                        form.render(); //更新全部
+                    } else {
+                        layer.msg(result.message);
+                    }
+                }
+            });
+        }
+
+        // 页面初始化
+        if (page == 'view' || page == 'edit') {
             var query = {};
             query.id = id;
             $.ajax({
@@ -148,14 +203,16 @@
                 data: query,
                 success: function (result) {
                     if (result.code == 0) {
+                        $("#id").val(result.data.personnel.id);
+                        $("#name").val(result.data.personnel.name);
                         //赋值
                         var sex = result.data.personnel.gender;
-                        $("#name").val(result.data.personnel.name);
-                        $("#gender" + sex).attr("checked", "checked");
-                        // $("input[name='gender']").val().attr("checked",true);
+                        $("#gender" + sex).prop("checked", true);
                         $("#zi").val(result.data.personnel.zi);
-                        $("#parentsName").val(result.data.personnel.parentsName);
+                        $("#parentName").val(result.data.personnel.parentName);
                         $("#parentId").val(result.data.personnel.parentId);
+                        $("#coupleName").val(result.data.personnel.coupleName);
+                        $("#coupleId").val(result.data.personnel.coupleId);
                         $("#bei").val(result.data.personnel.bei);
                         $("#nickName").val(result.data.personnel.nickName);
                         $("#ranking").val(result.data.personnel.ranking);
@@ -167,26 +224,18 @@
                         $("#phone").val(result.data.personnel.phone);
                         $("#address").val(result.data.personnel.address);
                         $("#remark").val(result.data.personnel.remark);
+                        form.render(); //更新全部
                     } else {
                         layer.msg(result.message);
                     }
                 }
             });
         }
-    });
-
-    /**
-     * 提交
-     */
-    layui.use(['form', 'layer'], function () {
-        $ = layui.jquery;
-        var form = layui.form
-            , layer = layui.layer;
 
         //监听提交
-        form.on('submit(add)', function (data) {
+        form.on('submit(submit)', function (data) {
             $.ajax({
-                url: '/personnel/add',
+                url: '/personnel/submit',
                 data: data.field,
                 success: function (result) {
                     if (result.code == 0) {
@@ -206,6 +255,7 @@
         });
     });
 
+    //查询url中的参数
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg);

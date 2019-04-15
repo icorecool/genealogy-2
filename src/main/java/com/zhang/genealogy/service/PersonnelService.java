@@ -1,5 +1,6 @@
 package com.zhang.genealogy.service;
 
+import com.zhang.genealogy.dto.PersonnelFormDTO;
 import com.zhang.genealogy.model.Personnel;
 
 import java.util.List;
@@ -18,12 +19,12 @@ public interface PersonnelService {
     List<Personnel> queryPage(Personnel personnel);
 
     /**
-     * 增加家人
+     * 增加/修改家人信息
      *
      * @param personnel
      * @return
      */
-    int add(Personnel personnel);
+    int submit(Personnel personnel);
 
     /**
      * 获取家人信息
@@ -31,5 +32,13 @@ public interface PersonnelService {
      * @param id
      * @return
      */
-    Personnel queryById(Long id);
+    PersonnelFormDTO queryById(Long id);
+
+    /**
+     * 删除家人信息
+     *
+     * @param id
+     * @return
+     */
+    int delById(Long id);
 }

@@ -54,7 +54,7 @@ public class Personnel {
     /**
      * 配偶ID
      */
-    private Integer coupleId;
+    private Long coupleId;
 
     /**
      * 世代

@@ -1,6 +1,9 @@
 package com.zhang.genealogy.controller;
 
+import com.zhang.genealogy.dto.PersonnelFormDTO;
 import com.zhang.genealogy.dto.Result;
+import com.zhang.genealogy.exception.CommonException;
+import com.zhang.genealogy.exception.ErrorCode;
 import com.zhang.genealogy.model.Personnel;
 import com.zhang.genealogy.service.PersonnelService;
 import org.springframework.stereotype.Controller;
@@ -39,15 +42,15 @@ public class PersonnelController {
     }
 
     /**
-     * 增加家人
+     * 增加/修改家人信息
      *
      * @param personnel
      * @return
      */
-    @RequestMapping("/add")
+    @RequestMapping("/submit")
     @ResponseBody
-    public Result add(Personnel personnel) {
-        personnelService.add(personnel);
+    public Result submit(Personnel personnel) {
+        personnelService.submit(personnel);
         Result result = new Result();
         return result;
     }
@@ -62,14 +65,30 @@ public class PersonnelController {
     @RequestMapping("/queryById")
     @ResponseBody
     public Result queryById(Long id) {
-        Result result = new Result();
         if (id == null) {
-            return result;
+            throw new CommonException(ErrorCode.PARAM_IS_EMPTY, "人员ID");
         }
-        Personnel personnel = personnelService.queryById(id);
-        result.addObject("personnel", personnel);
+        PersonnelFormDTO personnelFormDTO = personnelService.queryById(id);
+        Result result = new Result();
+        result.addObject("personnel", personnelFormDTO);
         return result;
     }
 
 
+    /**
+     * 删除家人信息
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/delete")
+    @ResponseBody
+    public Result delById(Long id) {
+        if (id == null) {
+            throw new CommonException(ErrorCode.PARAM_IS_EMPTY, "人员ID");
+        }
+        personnelService.delById(id);
+        Result result = new Result();
+        return result;
+    }
 }

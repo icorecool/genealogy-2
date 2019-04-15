@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <title>家谱管理系统</title>
     <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
     <meta name="author" content="Vincent Garreau"/>
@@ -25,17 +25,17 @@
         <div class="login-center clearfix">
             <div class="login-center-img"><img src="./images/name.png"/></div>
             <div class="login-center-input">
-                <input type="text" id="username" name="username" value="" placeholder="请输入您的用户名" onfocus="this.placeholder=''"
+                <input type="text" id="username" name="username" value="" placeholder="请输入您的用户名"
+                       onfocus="this.placeholder=''"
                        onblur="this.placeholder='请输入您的用户名'"/>
-                <div class="login-center-input-text">用户名</div>
             </div>
         </div>
         <div class="login-center clearfix">
             <div class="login-center-img"><img src="./images/password.png"/></div>
             <div class="login-center-input">
-                <input type="password" id="password" name="password" value="" placeholder="请输入您的密码" onfocus="this.placeholder=''"
+                <input type="password" id="password" name="password" value="" placeholder="请输入您的密码"
+                       onfocus="this.placeholder=''"
                        onblur="this.placeholder='请输入您的密码'"/>
-                <div class="login-center-input-text">密码</div>
             </div>
         </div>
         <div class="login-button" lay-submit lay-filter="login">
@@ -49,36 +49,14 @@
 <script src="js/particles.min.js"></script>
 <script src="js/app.js"></script>
 <script type="text/javascript">
-    function hasClass(elem, cls) {
-        cls = cls || '';
-        if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
-        return new RegExp(' ' + cls + ' ').test(' ' + elem.className + ' ');
-    }
-
-    function addClass(ele, cls) {
-        if (!hasClass(ele, cls)) {
-            ele.className = ele.className == '' ? cls : ele.className + ' ' + cls;
-        }
-    }
-
-    function removeClass(ele, cls) {
-        if (hasClass(ele, cls)) {
-            var newClass = ' ' + ele.className.replace(/[\t\r\n]/g, '') + ' ';
-            while (newClass.indexOf(' ' + cls + ' ') >= 0) {
-                newClass = newClass.replace(' ' + cls + ' ', ' ');
-            }
-            ele.className = newClass.replace(/^\s+|\s+$/g, '');
-        }
-    }
-
     layui.use('form', function () {
         var form = layui.form;
-        form.on('submit(login)', function (data) {
+        form.on('submit(login)', function () {
             var loginParam = {};
             loginParam.loginName = $("#username").val();
             loginParam.password = $("#password").val();
 
-            if ("" == loginParam.loginName || undefined == loginParam.password) {
+            if ("" == loginParam.loginName || "" == loginParam.password) {
                 layer.msg("用户名或密码不能为空");
                 return;
             }

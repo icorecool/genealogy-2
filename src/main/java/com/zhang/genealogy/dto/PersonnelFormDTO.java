@@ -9,15 +9,15 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class PersonnelFormDTO {
+public class PersonnelFormDTO extends Personnel {
 
     /**
-     * 丈夫
+     * 父母姓名
      */
-    Personnel husband;
+    String parentName;
 
     /**
-     * 妻子
+     * 配偶姓名
      */
-    Personnel wife;
+    String coupleName;
 }

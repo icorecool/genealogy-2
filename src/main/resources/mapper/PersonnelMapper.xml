@@ -12,7 +12,7 @@
         <result column="zi" property="zi" jdbcType="VARCHAR"/>
         <result column="bei" property="bei" jdbcType="VARCHAR"/>
         <result column="gender" property="gender" jdbcType="INTEGER"/>
-        <result column="parentsId" property="parentId" jdbcType="INTEGER"/>
+        <result column="parentId" property="parentId" jdbcType="INTEGER"/>
         <result column="coupleId" property="coupleId" jdbcType="INTEGER"/>
         <result column="generation" property="generation" jdbcType="INTEGER"/>
         <result column="ranking" property="ranking" jdbcType="INTEGER"/>
@@ -37,6 +37,10 @@
       remark, image_url, delete_status, create_time, update_time
     </sql>
 
+    <delete id="delById">
+        delete from personnel where id = #{id}
+    </delete>
+
     <select id="queryList" resultMap="BaseResultMap" parameterType="com.zhang.genealogy.model.Personnel">
         select
         <include refid="Base_Column_List"/>
@@ -58,6 +62,76 @@
         from personnel
         where id = #{id}
     </select>
+
+    <update id="updateById" parameterType="com.zhang.genealogy.model.Personnel">
+        update personnel
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                nickname = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="zi != null">
+                zi = #{zi,jdbcType=VARCHAR},
+            </if>
+            <if test="bei != null">
+                bei = #{bei,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                parentId = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="coupleId != null">
+                coupleId = #{coupleId,jdbcType=INTEGER},
+            </if>
+            <if test="generation != null">
+                generation = #{generation,jdbcType=INTEGER},
+            </if>
+            <if test="ranking != null">
+                ranking = #{ranking,jdbcType=INTEGER},
+            </if>
+            <if test="isLiving != null">
+                is_living = #{isLiving,jdbcType=INTEGER},
+            </if>
+            <if test="birthDate != null">
+                birth_date = #{birthDate,jdbcType=DATE},
+            </if>
+            <if test="deathDate != null">
+                death_date = #{deathDate,jdbcType=DATE},
+            </if>
+            <if test="degree != null">
+                degree = #{degree,jdbcType=INTEGER},
+            </if>
+            <if test="university != null">
+                university = #{university,jdbcType=VARCHAR},
+            </if>
+            <if test="work != null">
+                work = #{work,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="imageUrl != null">
+                image_url = #{imageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteStatus != null">
+                delete_status = #{deleteStatus,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=DATE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 
     <insert id="insert" parameterType="com.zhang.genealogy.model.Personnel" useGeneratedKeys="true" keyProperty="id">
         insert into personnel

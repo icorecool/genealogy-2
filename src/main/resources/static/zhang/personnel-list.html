@@ -1,4 +1,6 @@
+<!DOCTYPE html>
 <html class="x-admin-sm">
+
 <head>
     <meta charset="UTF-8">
     <title>家谱管理系统</title>
@@ -35,7 +37,7 @@
 
             <button class="layui-btn" onclick="searchPageList()"><i class="layui-icon">&#xe615;</i></button>
 
-            <button class="layui-btn" id="add" onclick="x_admin_show('添加人员','./personnel-add.html',800,600)">
+            <button class="layui-btn" id="add" onclick="x_admin_show('添加人员','./personnel-add.html?page=add',800,600)">
                 <i class="layui-icon"></i>添加
             </button>
 
@@ -54,6 +56,7 @@
             <th style="text-align: center;"><b>性别</b></th>
             <th style="text-align: center;"><b>排行</b></th>
             <th style="text-align: center;"><b>出生年月</b></th>
+            <th style="text-align: center;"><b>是否在世</b></th>
             <th style="text-align: center;"><b>居住地址</b></th>
             <th style="text-align: center;"><b>联系方式</b></th>
             <th style="text-align: center;"><b>世代</b></th>
@@ -61,9 +64,7 @@
             <th style="text-align: center;"><b>操作</b></th>
         </tr>
         </thead>
-        <tbody id="tbody">
-
-        </tbody>
+        <tbody id="tbody"></tbody>
     </table>
 
 </div>
@@ -110,63 +111,132 @@
         $("#tbody").html('');
         for (var i = 0; i < list.length; i++) {
             var personnel = list[i];
-            var gender = (personnel.gender == 0) ? "女" : "男";
+            var rankingStr;
+            switch (personnel.ranking) {
+                case 1:
+                    rankingStr = '老大';
+                    break;
+                case 2:
+                    rankingStr = '老二';
+                    break;
+                case 3:
+                    rankingStr = '老三';
+                    break;
+                case 4:
+                    rankingStr = '老四';
+                    break;
+                case 5:
+                    rankingStr = '老五';
+                    break;
+                case 6:
+                    rankingStr = '老六';
+                    break;
+                case 7:
+                    rankingStr = '老七';
+                    break;
+                case 8:
+                    rankingStr = '老八';
+                    break;
+            }
+            var genderStr = (personnel.gender == 0) ? "女" : "男";
+            var isLivingStr;
+            switch (personnel.isLiving) {
+                case 0:
+                    isLivingStr = '在世';
+                    break;
+                case 1:
+                    isLivingStr = '去世';
+                    break;
+                case 2:
+                    isLivingStr = '未知';
+                    break;
+            }
             if (0 == type) {//管理员权限
                 $("#tbody").append(
                     '<tr>' +
                     '<td>' + personnel.name + '</td>' +
                     '<td>' + personnel.bei + '</td>' +
-                    '<td>' + gender + '</td>' +
-                    '<td>' + personnel.ranking + '</td>' +
+                    '<td>' + genderStr + '</td>' +
+                    '<td>' + rankingStr + '</td>' +
                     '<td>' + personnel.birthDate + '</td>' +
+                    '<td>' + isLivingStr + '</td>' +
                     '<td>' + personnel.address + '</td>' +
                     '<td>' + personnel.phone + '</td>' +
                     '<td>' + personnel.generation + '</td>' +
                     '<td>' + personnel.remark + '</td>' +
                     '<td data-field="10" data-key="1-0-10" style="text-align: center;" data-off="true" class="layui-table-col-special">' +
                     '<div class="layui-table-cell laytable-cell-1-0-10">' +
-                    '<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view" onclick="view(this, ' + personnel.id + ')">查看人员</a>' +
-                    '<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view">查看家庭</a>' +
-                    '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>' +
-                    '<a class="layui-btn layui-btn-radius layui-btn-warm" lay-event="add">新增子女</a>' +
-                    '<a class="layui-btn layui-btn-radius layui-btn-warm" lay-event="add">新增配偶</a>' +
-                    '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></div>' +
+                    '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="view(this, ' + personnel.id + ')">查看人员</a>' +
+                    '<a class="layui-btn layui-btn-normal layui-btn-xs" >查看家庭</a>' +
+                    '<a class="layui-btn layui-btn-xs" onclick="edit(this, ' + personnel.id + ')">编辑</a>' +
+                    '<a class="layui-btn layui-btn-radius layui-btn-warm" onclick="addChild(this, ' + personnel.id + ')">新增子女</a>' +
+                    '<a class="layui-btn layui-btn-radius layui-btn-warm" onclick="addCouple(this, ' + personnel.id + ')">新增配偶</a>' +
+                    '<a class="layui-btn layui-btn-danger layui-btn-xs" onclick="del(this, ' + personnel.id + ')">删除</a></div>' +
                     '</td>' +
-                    '</tr>')
+                    '</tr>'
+                )
             } else {
                 $("#tbody").append(
                     '<tr>' +
                     '<td>' + personnel.name + '</td>' +
                     '<td>' + personnel.bei + '</td>' +
-                    '<td>' + gender + '</td>' +
-                    '<td>' + personnel.ranking + '</td>' +
+                    '<td>' + genderStr + '</td>' +
+                    '<td>' + rankingStr + '</td>' +
                     '<td>' + personnel.birthDate + '</td>' +
+                    '<td>' + isLivingStr + '</td>' +
                     '<td>' + personnel.address + '</td>' +
                     '<td>' + personnel.phone + '</td>' +
                     '<td>' + personnel.generation + '</td>' +
                     '<td>' + personnel.remark + '</td>' +
                     '<td data-field="10" data-key="1-0-10" style="text-align: center;" data-off="true" class="layui-table-col-special">' +
                     '<div class="layui-table-cell laytable-cell-1-0-10">' +
-                    '<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view">查看人员</a>' +
-                    '<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="view">查看家庭</a></div>' +
+                    '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="view(this, ' + personnel.id + ')">查看人员</a>' +
+                    '<a class="layui-btn layui-btn-normal layui-btn-xs" >查看家庭</a></div>' +
                     '</td>' +
                     '</tr>')
             }
         }
     }
 
+    /*新增子女*/
+    function addChild(obj, id) {
+        x_admin_show('新增子女', './personnel-add.html?page=add&parentId=' + id, 800, 700)
+    }
+
+    /*新增配偶*/
+    function addCouple(obj, id) {
+        x_admin_show('新增配偶', './personnel-add.html?page=add&coupleId=' + id, 800, 700)
+
+    }
+
+    /*编辑*/
+    function edit(obj, id) {
+        x_admin_show('编辑人员', './personnel-add.html?page=edit&id=' + id, 800, 700)
+    }
+
     /*浏览*/
     function view(obj, id) {
-        x_admin_show('查看人员', './personnel-add.html?page=view&id=' + id, 800, 600)
+        x_admin_show('查看人员', './personnel-add.html?page=view&id=' + id, 800, 700)
     }
 
     /*删除*/
     function del(obj, id) {
-        alert(id)
-        layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!', {icon: 1, time: 1000});
+        layer.confirm('确认要删除吗？', function () {
+            var del = {};
+            del.id = id;
+            $.ajax({
+                url: '/personnel/delete',
+                data: del,
+                success: function (result) {
+                    if (result.code == 0) {
+                        //发异步删除数据
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!', {icon: 1, time: 1000});
+                    } else {
+                        layer.msg(result.message);
+                    }
+                }
+            });
         });
     }
 
