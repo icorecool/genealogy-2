@@ -18,25 +18,23 @@
 <body>
 
 <div id="particles-js">
-    <div class="login" method="post">
+    <div class="login">
         <div class="login-top">
             登录
         </div>
         <div class="login-center clearfix">
             <div class="login-center-img"><img src="./images/name.png"/></div>
             <div class="login-center-input">
-                <input type="text" id="username" name="username" value="" placeholder="请输入您的用户名"
-                       onfocus="this.placeholder=''"
-                       onblur="this.placeholder='请输入您的用户名'" required/>
+                <input type="text" id="username" name="username" value="" placeholder="请输入您的用户名" onfocus="this.placeholder=''"
+                       onblur="this.placeholder='请输入您的用户名'"/>
                 <div class="login-center-input-text">用户名</div>
             </div>
         </div>
         <div class="login-center clearfix">
             <div class="login-center-img"><img src="./images/password.png"/></div>
             <div class="login-center-input">
-                <input type="password" id="password" name="password" value="" placeholder="请输入您的密码"
-                       onfocus="this.placeholder=''"
-                       onblur="this.placeholder='请输入您的密码'" required/>
+                <input type="password" id="password" name="password" value="" placeholder="请输入您的密码" onfocus="this.placeholder=''"
+                       onblur="this.placeholder='请输入您的密码'"/>
                 <div class="login-center-input-text">密码</div>
             </div>
         </div>
@@ -73,37 +71,33 @@
         }
     }
 
-    $(function () {
-        layui.use('form', function () {
-            var form = layui.form;
-            //监听提交
-            form.on('submit(login)', function (data) {
-                // addClass(document.querySelector(".sk-rotating-plane"), "active")
-                // document.querySelector(".login").style.display = "none"
-                var loginParam = {};
-                loginParam.loginName = data.field.username;
-                loginParam.password = data.field.password;
-                $.ajax({
-                    method: post,
-                    url: '/platformUser/login',
-                    data: loginParam,
-                    success: function (result) {
-                        if (result.code == 0) {
-                            setCookie('username', result.data.platformUser.userShowName);
-                            setCookie('usertype', result.data.platformUser.userType);
-                            location.href = "/zhang/";
-                        } else {
-                            removeClass(document.querySelector(".login"), "active")
-                            removeClass(document.querySelector(".sk-rotating-plane"), "active")
-                            document.querySelector(".login").style.display = "block"
-                            layer.msg(result.message);
-                        }
+    layui.use('form', function () {
+        var form = layui.form;
+        form.on('submit(login)', function (data) {
+            var loginParam = {};
+            loginParam.loginName = $("#username").val();
+            loginParam.password = $("#password").val();
+
+            if ("" == loginParam.loginName || undefined == loginParam.password) {
+                layer.msg("用户名或密码不能为空");
+                return;
+            }
+            $.ajax({
+                url: '/platformUser/login',
+                data: loginParam,
+                success: function (result) {
+                    if (result.code == 0) {
+                        setCookie('username', result.data.platformUser.userShowName);
+                        setCookie('usertype', result.data.platformUser.userType);
+                        location.href = "/zhang/";
+                    } else {
+                        layer.msg(result.message);
                     }
-                });
-                return false;
+                }
             });
+            return false;
         });
-    })
+    });
 </script>
 </body>
 </html>
