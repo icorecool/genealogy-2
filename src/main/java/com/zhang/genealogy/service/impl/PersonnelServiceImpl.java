@@ -44,17 +44,23 @@ public class PersonnelServiceImpl implements PersonnelService {
      */
     @Override
     public int submit(Personnel personnel) {
-        //赋值和计算
-        personnel.setUpdateTime(DateUtil.date());
+        //计算世代. 父辈世代+1，或跟配偶保持一致
         Long parentId = personnel.getParentId();
-        //计算世代
         if (null != parentId) {
             Personnel parentPersonnel = queryById(parentId);
             personnel.setGeneration(parentPersonnel.getGeneration() + 1);
         } else {
             personnel.setGeneration(1);
         }
+        Long coupleId = personnel.getCoupleId();
+        if (null != coupleId) {
+            Personnel couplePersonnel = queryById(coupleId);
+            personnel.setGeneration(couplePersonnel.getGeneration());
+        }
+
+        //赋值
         personnel.setDeleteStatus(Constants.DELETE_STATUS_OK);
+        personnel.setUpdateTime(DateUtil.date());
         if (null == personnel.getId()) {
             personnel.setCreateTime(DateUtil.date());
             return personnelDAO.insert(personnel);
