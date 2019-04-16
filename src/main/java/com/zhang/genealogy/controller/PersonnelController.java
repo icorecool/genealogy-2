@@ -1,5 +1,6 @@
 package com.zhang.genealogy.controller;
 
+import com.zhang.genealogy.dto.EchartsTree;
 import com.zhang.genealogy.dto.PersonnelFormDTO;
 import com.zhang.genealogy.dto.Result;
 import com.zhang.genealogy.exception.CommonException;
@@ -53,6 +54,22 @@ public class PersonnelController {
         List<Personnel> personnelList = personnelService.queryFamily(id);
         Result result = new Result();
         result.addObject("list", personnelList);
+        return result;
+    }
+
+    /**
+     * 查看家庭树
+     *
+     * @return
+     */
+    @RequestMapping("/tree")
+    @ResponseBody
+    public Result queryFamilyTree() {
+        //TODO 将数据库中始祖parentId改为0
+        Long id = 0L;
+        EchartsTree echartsTree = personnelService.queryFamilyTree(id);
+        Result result = new Result();
+        result.addObject("tree", echartsTree);
         return result;
     }
 

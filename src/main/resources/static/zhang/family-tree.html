@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./js/echarts.min.js"></script>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 100%;height:768px"></div>
+<script type="text/javascript">
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    myChart.showLoading();
+
+    $.ajax({
+        url: '/personnel/tree',
+        success: function (resule) {
+            if (resule.code == 0) {
+                createTree(resule.data.tree)
+            } else {
+                layer.msg(resule.message);
+            }
+        }
+    });
+
+    function createTree(data) {
+        myChart.hideLoading();
+
+        myChart.setOption(option = {
+            tooltip: {
+                trigger: 'item',
+                triggerOn: 'mousemove'
+            },
+            series: [
+                {
+                    type: 'tree',
+
+                    data: [data],
+
+                    top: '1%',
+                    left: '7%',
+                    bottom: '1%',
+                    right: '20%',
+
+                    symbolSize: 7,
+
+                    label: {
+                        normal: {
+                            position: 'left',
+                            verticalAlign: 'middle',
+                            align: 'right',
+                            fontSize: 9
+                        }
+                    },
+
+                    leaves: {
+                        label: {
+                            normal: {
+                                position: 'right',
+                                verticalAlign: 'middle',
+                                align: 'left'
+                            }
+                        }
+                    },
+
+                    roam: true,
+                    expandAndCollapse: true,
+                    animationDuration: 550,
+                    animationDurationUpdate: 750
+                }
+            ]
+        });
+    }
+
+</script>
+</body>
+</html>

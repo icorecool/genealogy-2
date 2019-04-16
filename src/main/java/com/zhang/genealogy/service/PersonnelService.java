@@ -1,5 +1,6 @@
 package com.zhang.genealogy.service;
 
+import com.zhang.genealogy.dto.EchartsTree;
 import com.zhang.genealogy.dto.PersonnelFormDTO;
 import com.zhang.genealogy.model.Personnel;
 
@@ -51,4 +52,11 @@ public interface PersonnelService {
      */
     int delById(Long id);
 
+    /**
+     * 家人树形展示
+     *
+     * @param id
+     * @return
+     */
+    EchartsTree queryFamilyTree(Long id);
 }

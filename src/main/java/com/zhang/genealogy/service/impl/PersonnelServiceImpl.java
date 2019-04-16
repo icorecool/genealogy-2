@@ -3,6 +3,7 @@ package com.zhang.genealogy.service.impl;
 import cn.hutool.core.date.DateUtil;
 import com.zhang.genealogy.constant.Constants;
 import com.zhang.genealogy.dao.PersonnelDAO;
+import com.zhang.genealogy.dto.EchartsTree;
 import com.zhang.genealogy.dto.PersonnelFormDTO;
 import com.zhang.genealogy.model.Personnel;
 import com.zhang.genealogy.service.PersonnelService;
@@ -178,6 +179,63 @@ public class PersonnelServiceImpl implements PersonnelService {
     @Override
     public int delById(Long id) {
         return personnelDAO.delById(id);
+    }
+
+    /**
+     * 查看家庭树 - 递归
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public EchartsTree queryFamilyTree(Long id) {
+        EchartsTree echartsTree = new EchartsTree();
+
+        Personnel searchPer = new Personnel();
+        searchPer.setParentId(id);
+        List<Personnel> personnelList = personnelDAO.queryList(searchPer);
+        if (personnelList.size() != 1) {
+            return null;
+        } else {
+            Personnel personnel = personnelList.get(0);
+            echartsTree.setName(personnel.getName());
+            echartsTree.setValue(personnel.getId());
+            List<EchartsTree> tree = queryFamilyChildren(personnel.getId());
+            if (null != tree) {
+                echartsTree.setChildren(tree);
+            }
+            return echartsTree;
+        }
+
+    }
+
+    private List<EchartsTree> queryFamilyChildren(Long id) {
+        List<EchartsTree> list = new ArrayList<>();
+
+        Personnel searchPer = new Personnel();
+        searchPer.setParentId(id);
+        List<Personnel> personnelList = personnelDAO.queryList(searchPer);
+
+        if (personnelList.size() == 0) {
+            return null;
+        }
+
+        for (Personnel personnel : personnelList) {
+            EchartsTree echartsTree = new EchartsTree();
+            echartsTree.setName(personnel.getName());
+            echartsTree.setValue(personnel.getId());
+            list.add(echartsTree);
+
+            List<EchartsTree> tree = this.queryFamilyChildren(personnel.getId());
+            if (null != tree) {
+                echartsTree.setChildren(tree);
+            }else{
+                echartsTree.setChildren(new ArrayList<>());
+
+            }
+        }
+
+        return list;
     }
 
 }
