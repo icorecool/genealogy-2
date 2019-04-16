@@ -16,7 +16,16 @@ public interface PersonnelService {
      * @param personnel
      * @return
      */
-    List<Personnel> queryPage(Personnel personnel);
+    List<Personnel> queryList(Personnel personnel);
+
+    /**
+     * 家庭列表
+     *
+     * @param id
+     * @return
+     */
+    List<Personnel> queryFamily(Long id);
+
 
     /**
      * 增加/修改家人信息
@@ -41,4 +50,5 @@ public interface PersonnelService {
      * @return
      */
     int delById(Long id);
+
 }

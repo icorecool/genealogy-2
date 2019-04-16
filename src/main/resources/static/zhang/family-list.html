@@ -23,31 +23,7 @@
 </head>
 
 <body>
-<div class="x-nav">
-      <span class="layui-breadcrumb">
-        <a href="">首页</a>
-        <a>
-          <cite>家人列表</cite></a>
-      </span>
-</div>
 <div class="x-body">
-    <div class="layui-row">
-        <div class="layui-form layui-col-md12 x-so">
-            <input type="text" name="name" id="name" placeholder="姓名" autocomplete="off" class="layui-input">
-
-            <button class="layui-btn" onclick="searchPageList()"><i class="layui-icon">&#xe615;</i></button>
-
-            <button class="layui-btn" id="add" onclick="x_admin_show('添加人员','./personnel-add.html?page=add',800,600)">
-                <i class="layui-icon"></i>添加
-            </button>
-
-            <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
-               href="javascript:location.replace(location.href);" title="刷新">
-                <span id="total"></span>
-                <i class="iconfont" style="line-height:30px">&#xe6aa;</i>
-            </a>
-        </div>
-    </div>
     <table class="layui-table">
         <thead>
         <tr>
@@ -69,16 +45,13 @@
 
 </div>
 <script>
-    var type;
+
+    var id = getQueryString('id');
 
     /**
      * 页面加载完调用
      */
     $(function () {
-        type = getCookie('usertype');
-        if (type != 0) {
-            $("#add").remove()
-        }
         searchPageList();
     });
 
@@ -87,9 +60,9 @@
      */
     function searchPageList() {
         var search = {};
-        search.name = $("#name").val();
+        search.id = id;
         $.ajax({
-            url: '/personnel/list',
+            url: '/personnel/family',
             data: search,
             success: function (result) {
                 if (result.code == 0) {
@@ -170,20 +143,7 @@
                 '<td data-field="10" data-key="1-0-10" style="text-align: center;" data-off="true" class="layui-table-col-special">' +
                 '<div class="layui-table-cell laytable-cell-1-0-10">' +
 
-                '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="view(this, ' + personnel.id + ')">查看家人</a>' +
-                '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="viewFamily(this, ' + personnel.id + ')">查看家庭</a>'
-
-            if (type == 0) {
-                trStr +=
-                    '<a class="layui-btn layui-btn-xs" onclick="edit(this, ' + personnel.id + ')">编辑</a>' +
-                    '<a class="layui-btn layui-btn-danger layui-btn-xs" onclick="del(this, ' + personnel.id + ')">删除</a>';
-                if (personnel.coupleId == null) {
-                    trStr +=
-                        '<a class="layui-btn layui-btn-radius layui-btn-warm" onclick="addChild(this, ' + personnel.id + ')">新增子女</a>' +
-                        '<a class="layui-btn layui-btn-radius layui-btn-warm" onclick="addCouple(this, ' + personnel.id + ')">新增配偶</a>';
-                }
-            }
-            trStr +=
+                '<a class="layui-btn layui-btn-normal layui-btn-xs" onclick="view(this, ' + personnel.id + ')">查看人员</a>' +
                 '</div>' +
                 '</td>' +
                 '</tr>';
@@ -193,51 +153,17 @@
         }
     }
 
-    /*新增子女*/
-    function addChild(obj, id) {
-        x_admin_show('新增子女', './personnel-add.html?page=add&parentId=' + id, 800, 700)
-    }
-
-    /*新增配偶*/
-    function addCouple(obj, id) {
-        x_admin_show('新增配偶', './personnel-add.html?page=add&coupleId=' + id, 800, 700)
-
-    }
-
-    /*编辑*/
-    function edit(obj, id) {
-        x_admin_show('编辑家人', './personnel-add.html?page=edit&id=' + id, 800, 700)
-    }
-
     /*浏览*/
     function view(obj, id) {
-        x_admin_show('查看家人', './personnel-add.html?page=view&id=' + id, 800, 700)
+        x_admin_show('查看人员', './personnel-add.html?page=view&id=' + id, 800, 500)
     }
 
-    /*查看家庭*/
-    function viewFamily(obj, id) {
-        x_admin_show('查看家庭', './family-list.html?id=' + id, 1000, 700)
-    }
-
-    /*删除*/
-    function del(obj, id) {
-        layer.confirm('确认要删除吗？', function () {
-            var del = {};
-            del.id = id;
-            $.ajax({
-                url: '/personnel/delete',
-                data: del,
-                success: function (result) {
-                    if (result.code == 0) {
-                        //发异步删除数据
-                        $(obj).parents("tr").remove();
-                        layer.msg('已删除!', {icon: 1, time: 1000});
-                    } else {
-                        layer.msg(result.message);
-                    }
-                }
-            });
-        });
+    //查询url中的参数
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
     }
 
 </script>

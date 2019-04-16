@@ -27,19 +27,35 @@ public class PersonnelController {
     private PersonnelService personnelService;
 
     /**
-     * 查看家人分页列表
+     * 查看家人列表
      *
      * @param personnel
      * @return
      */
     @RequestMapping("/list")
     @ResponseBody
-    public Result queryByPage(Personnel personnel) {
-        List<Personnel> personnelList = personnelService.queryPage(personnel);
+    public Result queryList(Personnel personnel) {
+        List<Personnel> personnelList = personnelService.queryList(personnel);
         Result result = new Result();
         result.addObject("list", personnelList);
         return result;
     }
+
+    /**
+     * 查看家庭列表
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/family")
+    @ResponseBody
+    public Result queryFamily(Long id) {
+        List<Personnel> personnelList = personnelService.queryFamily(id);
+        Result result = new Result();
+        result.addObject("list", personnelList);
+        return result;
+    }
+
 
     /**
      * 增加/修改家人信息

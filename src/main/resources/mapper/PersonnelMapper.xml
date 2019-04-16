@@ -52,8 +52,17 @@
             <if test="generation != null">
                 and generation = #{generation}
             </if>
+            <if test="coupleId != null">
+                and coupleId = #{coupleId}
+            </if>
+            <if test="generation != null">
+                and generation = #{generation}
+            </if>
+            <if test="parentId != null">
+                and parentId = #{parentId}
+            </if>
         </where>
-        order by id desc
+        order by id;
     </select>
 
     <select id="queryById" resultMap="BaseResultMap">
