@@ -67,7 +67,7 @@
             <button class="layui-btn" onclick="searchPageList()"><i class="layui-icon">&#xe615;</i></button>
 
             <button class="layui-btn" id="add"
-                    onclick="x_admin_show('添加人员','./personnel-add.html?page=add&parentId=0',800,700)">
+                    onclick="x_admin_show('添加人员','./personnel-add.html?page=add&parentId=0',800,500)">
                 <i class="layui-icon"></i>添加
             </button>
 
@@ -230,28 +230,28 @@
 
     /*新增子女*/
     function addChild(obj, id) {
-        x_admin_show('新增子女', './personnel-add.html?page=add&parentId=' + id, 800, 700)
+        x_admin_show('新增子女', './personnel-add.html?page=add&parentId=' + id, 800, 500)
     }
 
     /*新增配偶*/
     function addCouple(obj, id) {
-        x_admin_show('新增配偶', './personnel-add.html?page=add&coupleId=' + id, 800, 700)
+        x_admin_show('新增配偶', './personnel-add.html?page=add&coupleId=' + id, 800, 500)
 
     }
 
     /*编辑*/
     function edit(obj, id) {
-        x_admin_show('编辑家人', './personnel-add.html?page=edit&id=' + id, 800, 700)
+        x_admin_show('编辑家人', './personnel-add.html?page=edit&id=' + id, 800, 500)
     }
 
     /*浏览*/
     function view(obj, id) {
-        x_admin_show('查看家人', './personnel-add.html?page=view&id=' + id, 800, 700)
+        x_admin_show('查看家人', './personnel-add.html?page=view&id=' + id, 800, 500)
     }
 
     /*查看家庭*/
     function viewFamily(obj, id) {
-        x_admin_show('查看家庭', './family-list.html?id=' + id, 1000, 700)
+        x_admin_show('查看家庭', './family-list.html?id=' + id, 1000, 500)
     }
 
     /*删除*/
