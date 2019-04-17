@@ -159,7 +159,7 @@
         }
 
         //新增时页面内容展示
-        if (parentId != null) {
+        if (parentId != null && parentId != 0) {
             var query = {};
             query.id = parentId;
             $.ajax({
@@ -175,6 +175,8 @@
                     }
                 }
             });
+        } else if (parentId == 0) {
+            $("#parentId").val(0);
         }
 
         if (coupleId != null) {

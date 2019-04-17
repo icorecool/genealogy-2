@@ -75,11 +75,13 @@ public class PersonnelServiceImpl implements PersonnelService {
         Personnel parent = new Personnel();
         List<Personnel> parentCoupleList = new ArrayList<>();
         Long parentId = self.getParentId();
-        if (null != parentId) {
+        if (null != parentId && parentId != 0) {
             parent = personnelDAO.queryById(parentId);
-            Personnel searchPer = new Personnel();
-            searchPer.setCoupleId(parent.getId());
-            parentCoupleList = queryList(searchPer);
+            if (null != parent) {
+                Personnel searchPer = new Personnel();
+                searchPer.setCoupleId(parent.getId());
+                parentCoupleList = queryList(searchPer);
+            }
         }
 
         //添加进List
@@ -121,9 +123,13 @@ public class PersonnelServiceImpl implements PersonnelService {
     public int submit(Personnel personnel) {
         //计算世代. 父辈世代+1，或跟配偶保持一致
         Long parentId = personnel.getParentId();
-        if (null != parentId) {
+        if (null != parentId && parentId != 0) {
             Personnel parentPersonnel = queryById(parentId);
-            personnel.setGeneration(parentPersonnel.getGeneration() + 1);
+            if (null != parentPersonnel) {
+                personnel.setGeneration(parentPersonnel.getGeneration() + 1);
+            } else {
+                personnel.setGeneration(1);
+            }
         } else {
             personnel.setGeneration(1);
         }
@@ -157,9 +163,11 @@ public class PersonnelServiceImpl implements PersonnelService {
         BeanUtils.copyProperties(personnel, personnelFormDTO);
         //查询长辈姓名
         Long parentId = personnel.getParentId();
-        if (null != parentId) {
+        if (null != parentId && parentId != 0) {
             Personnel parentPersonnel = personnelDAO.queryById(parentId);
-            personnelFormDTO.setParentName(parentPersonnel.getName());
+            if (null != parentPersonnel) {
+                personnelFormDTO.setParentName(parentPersonnel.getName());
+            }
         }
         //查询配偶姓名
         Long coupleId = personnel.getCoupleId();
@@ -229,7 +237,7 @@ public class PersonnelServiceImpl implements PersonnelService {
             List<EchartsTree> tree = this.queryFamilyChildren(personnel.getId());
             if (null != tree) {
                 echartsTree.setChildren(tree);
-            }else{
+            } else {
                 echartsTree.setChildren(new ArrayList<>());
 
             }
