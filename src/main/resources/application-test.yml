@@ -1,7 +1,4 @@
 # spring配置
-logging:
-  level:
-    com.zhang: debug
 spring:
   datasource:
     url: jdbc:mysql://47.98.37.85:3306/genealogy?useUnicode=true&characterEncoding=utf8&useSSL=false
