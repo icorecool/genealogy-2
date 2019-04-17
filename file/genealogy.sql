@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2019-04-09 13:15:41
+Date: 2019-04-17 08:45:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -41,14 +41,13 @@ CREATE TABLE `personnel` (
   `zi` varchar(25) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '字',
   `bei` varchar(25) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '辈',
   `gender` int(1) DEFAULT NULL COMMENT '性别：0-女、1-男',
-  `parentsId` int(11) DEFAULT NULL COMMENT '父亲或母亲ID',
-  `coupleId` int(11) DEFAULT NULL COMMENT '夫妻ID',
-  `coupleType` int(1) DEFAULT NULL COMMENT '夫妻类型：1、丈夫，0-妻子',
+  `parentId` int(11) DEFAULT NULL COMMENT '父亲或母亲ID',
+  `coupleId` int(11) DEFAULT NULL COMMENT '当前配偶ID',
   `generation` int(2) DEFAULT NULL COMMENT '世代-自动计算',
   `ranking` int(2) DEFAULT NULL COMMENT '排行：1、2、3、4、5、6、7',
   `is_living` int(1) DEFAULT NULL COMMENT '是否在世：0-在世、1-去世',
-  `birth_date` date DEFAULT NULL COMMENT '出生日期',
-  `death_date` date DEFAULT NULL COMMENT '去世日期',
+  `birth_date` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '出生日期',
+  `death_date` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '去世日期',
   `degree` int(1) DEFAULT NULL COMMENT '学位：1、小学；2、初中；3、高中；4、中专；5、大专；6、本科；7、硕士；8、博士',
   `university` varchar(55) COLLATE utf8_bin DEFAULT NULL COMMENT '毕业学校',
   `work` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '工作',
@@ -60,7 +59,7 @@ CREATE TABLE `personnel` (
   `create_time` date DEFAULT NULL COMMENT '创建时间',
   `update_time` date DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Table structure for platform_user
