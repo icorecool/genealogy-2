@@ -69,7 +69,7 @@
             </if>
 
         </where>
-        order by id desc
+        order by id
     </select>
 
     <select id="queryById" resultMap="BaseResultMap">
