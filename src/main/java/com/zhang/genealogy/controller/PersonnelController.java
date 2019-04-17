@@ -35,7 +35,7 @@ public class PersonnelController {
      */
     @RequestMapping("/list")
     @ResponseBody
-    public Result queryList(Personnel personnel) {
+    public Result queryList(PersonnelFormDTO personnel) {
         List<Personnel> personnelList = personnelService.queryList(personnel);
         Result result = new Result();
         result.addObject("list", personnelList);
@@ -51,7 +51,7 @@ public class PersonnelController {
     @RequestMapping("/family")
     @ResponseBody
     public Result queryFamily(Long id) {
-        List<Personnel> personnelList = personnelService.queryFamily(id);
+        List<PersonnelFormDTO> personnelList = personnelService.queryFamily(id);
         Result result = new Result();
         result.addObject("list", personnelList);
         return result;

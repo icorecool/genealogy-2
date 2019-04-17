@@ -20,4 +20,14 @@ public class PersonnelFormDTO extends Personnel {
      * 配偶姓名
      */
     String coupleName;
+
+    /**
+     * 关系
+     */
+    String relative;
+
+    /**
+     * 查询条件
+     */
+    String couple;
 }

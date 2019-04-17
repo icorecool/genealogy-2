@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>ECharts</title>
+    <title>家谱管理系统</title>
     <!-- 引入 echarts.js -->
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="./js/echarts.min.js"></script>
@@ -32,33 +32,33 @@
         myChart.hideLoading();
 
         myChart.setOption(option = {
-            tooltip: {
-                trigger: 'item',
-                triggerOn: 'mousemove'
+            tooltip: {    //提示框组件
+                trigger: 'none',    //触发类型，默认：item（数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用）。可选：'axis'：坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用。'none':什么都不触发。
+                triggerOn: 'mousemove'    //提示框触发的条件，默认mousemove|click（鼠标点击和移动时触发）。可选mousemove：鼠标移动时，click：鼠标点击时，none：
             },
-            series: [
+            series: [    //系列列表
                 {
-                    type: 'tree',
+                    type: 'tree',    //树形结构
+                    initialTreeDepth:18,
+                    data: [data],    //上面从flare.json中得到的数据
 
-                    data: [data],
+                    top: '1%',       //距离上
+                    left: '7%',      //左
+                    bottom: '1%',    //下
+                    right: '20%',    //右的距离
 
-                    top: '1%',
-                    left: '7%',
-                    bottom: '1%',
-                    right: '20%',
+                    symbolSize: 7,   //标记的大小，就是那个小圆圈，默认7
 
-                    symbolSize: 7,
-
-                    label: {
+                    label: {         //每个节点所对应的标签的样式
                         normal: {
-                            position: 'left',
-                            verticalAlign: 'middle',
-                            align: 'right',
-                            fontSize: 9
+                            position: 'left',       //标签的位置
+                            verticalAlign: 'middle',//文字垂直对齐方式，默认自动。可选：top，middle，bottom
+                            align: 'right',         //文字水平对齐方式，默认自动。可选：top，center，bottom
+                            fontSize: 12             //标签文字大小
                         }
                     },
 
-                    leaves: {
+                    leaves: {    //叶子节点的特殊配置，如上面的树图示例中，叶子节点和非叶子节点的标签位置不同
                         label: {
                             normal: {
                                 position: 'right',
@@ -67,15 +67,15 @@
                             }
                         }
                     },
-
-                    roam: true,
-                    expandAndCollapse: true,
-                    animationDuration: 550,
-                    animationDurationUpdate: 750
+                    roam: true,//开启鼠标缩放和平移漫游
+                    // expandAndCollapse: true,    //子树折叠和展开的交互，默认打开
+                    animationDuration: 550,     //初始动画的时长，支持回调函数,默认1000
+                    animationDurationUpdate: 750//数据更新动画的时长，默认300
                 }
             ]
         });
     }
+
 
 </script>
 </body>

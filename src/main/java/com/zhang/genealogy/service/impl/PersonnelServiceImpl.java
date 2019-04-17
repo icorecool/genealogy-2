@@ -33,7 +33,7 @@ public class PersonnelServiceImpl implements PersonnelService {
      * @return
      */
     @Override
-    public List<Personnel> queryList(Personnel personnel) {
+    public List<Personnel> queryList(PersonnelFormDTO personnel) {
         List<Personnel> personnelList = personnelDAO.queryList(personnel);
         return personnelList;
     }
@@ -45,14 +45,13 @@ public class PersonnelServiceImpl implements PersonnelService {
      * @return
      */
     @Override
-    public List<Personnel> queryFamily(Long id) {
-        //TODO 添加关系
+    public List<PersonnelFormDTO> queryFamily(Long id) {
         //一家三代
-        List<Personnel> personnelList = new ArrayList<>();
+        List<PersonnelFormDTO> personnelList = new ArrayList<>();
 
         //判断自己是不是配偶,
         //配偶没有parentId，所以需要转换.
-        Personnel self = personnelDAO.queryById(id);
+        Personnel self = queryById(id);
         if (null == self) {
             return new ArrayList<>();
         }
@@ -64,9 +63,9 @@ public class PersonnelServiceImpl implements PersonnelService {
             Personnel couple = new Personnel();
             couple = self;
             selfCoupleList.add(couple);
-            self = personnelDAO.queryById(coupleId);
+            self = queryById(coupleId);
         } else {
-            Personnel searchPer = new Personnel();
+            PersonnelFormDTO searchPer = new PersonnelFormDTO();
             searchPer.setCoupleId(id);
             selfCoupleList = queryList(searchPer);
         }
@@ -76,9 +75,9 @@ public class PersonnelServiceImpl implements PersonnelService {
         List<Personnel> parentCoupleList = new ArrayList<>();
         Long parentId = self.getParentId();
         if (null != parentId && parentId != 0) {
-            parent = personnelDAO.queryById(parentId);
+            parent = queryById(parentId);
             if (null != parent) {
-                Personnel searchPer = new Personnel();
+                PersonnelFormDTO searchPer = new PersonnelFormDTO();
                 searchPer.setCoupleId(parent.getId());
                 parentCoupleList = queryList(searchPer);
             }
@@ -86,28 +85,62 @@ public class PersonnelServiceImpl implements PersonnelService {
 
         //添加进List
         if (parent.getId() != null) {
-            personnelList.add(parent);
+            PersonnelFormDTO parentPersonnel = new PersonnelFormDTO();
+            BeanUtils.copyProperties(parent, parentPersonnel);
+            parentPersonnel.setRelative("父亲");
+            personnelList.add(parentPersonnel);
         }
         if (parentCoupleList.size() > 0) {
-            personnelList.addAll(parentCoupleList);
+            for (Personnel personnel : parentCoupleList) {
+                PersonnelFormDTO personnelDTO = new PersonnelFormDTO();
+                BeanUtils.copyProperties(personnel, personnelDTO);
+                personnelDTO.setRelative("母亲");
+                personnelList.add(personnelDTO);
+            }
         }
-        personnelList.add(self);
+
+        PersonnelFormDTO selfDTO = new PersonnelFormDTO();
+        BeanUtils.copyProperties(self, selfDTO);
+        selfDTO.setRelative("");
+        personnelList.add(selfDTO);
+
         if (personnelList.size() > 0) {
-            personnelList.addAll(selfCoupleList);
+            for (Personnel personnel : selfCoupleList) {
+                PersonnelFormDTO personnelDTO = new PersonnelFormDTO();
+                BeanUtils.copyProperties(personnel, personnelDTO);
+                personnelDTO.setRelative("妻子");
+                personnelList.add(personnelDTO);
+            }
         }
 
         //查询子辈信息，子辈配偶信息
         List<Personnel> childList = new ArrayList<>();
-        Personnel searchChild = new Personnel();
+        PersonnelFormDTO searchChild = new PersonnelFormDTO();
         searchChild.setParentId(self.getId());
         childList = queryList(searchChild);
         for (Personnel child : childList) {
-            personnelList.add(child);
+            PersonnelFormDTO childDTO = new PersonnelFormDTO();
+            BeanUtils.copyProperties(child, childDTO);
+            if (child.getGender() == 0) {
+                childDTO.setRelative("女儿");
+            } else {
+                childDTO.setRelative("儿子");
+            }
+            personnelList.add(childDTO);
             //查询子辈配偶信息
-            Personnel searchPer = new Personnel();
+            PersonnelFormDTO searchPer = new PersonnelFormDTO();
             searchPer.setCoupleId(child.getId());
             List<Personnel> childCoupleList = queryList(searchPer);
-            personnelList.addAll(childCoupleList);
+            for (Personnel personnel : childCoupleList) {
+                PersonnelFormDTO personnelDTO = new PersonnelFormDTO();
+                BeanUtils.copyProperties(personnel, personnelDTO);
+                if (personnel.getGender() == 0) {
+                    personnelDTO.setRelative("儿媳妇");
+                } else {
+                    personnelDTO.setRelative("女婿");
+                }
+                personnelList.add(personnelDTO);
+            }
         }
 
         return personnelList;
@@ -199,7 +232,7 @@ public class PersonnelServiceImpl implements PersonnelService {
     public EchartsTree queryFamilyTree(Long id) {
         EchartsTree echartsTree = new EchartsTree();
 
-        Personnel searchPer = new Personnel();
+        PersonnelFormDTO searchPer = new PersonnelFormDTO();
         searchPer.setParentId(id);
         List<Personnel> personnelList = personnelDAO.queryList(searchPer);
         if (personnelList.size() != 1) {
@@ -220,7 +253,7 @@ public class PersonnelServiceImpl implements PersonnelService {
     private List<EchartsTree> queryFamilyChildren(Long id) {
         List<EchartsTree> list = new ArrayList<>();
 
-        Personnel searchPer = new Personnel();
+        PersonnelFormDTO searchPer = new PersonnelFormDTO();
         searchPer.setParentId(id);
         List<Personnel> personnelList = personnelDAO.queryList(searchPer);
 

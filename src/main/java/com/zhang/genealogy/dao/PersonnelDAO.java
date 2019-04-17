@@ -1,5 +1,6 @@
 package com.zhang.genealogy.dao;
 
+import com.zhang.genealogy.dto.PersonnelFormDTO;
 import com.zhang.genealogy.model.Personnel;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface PersonnelDAO {
      * @param personnel
      * @return
      */
-    List<Personnel> queryList(Personnel personnel);
+    List<Personnel> queryList(PersonnelFormDTO personnel);
 
     /**
      * 根据主键ID查询家人信息

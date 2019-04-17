@@ -17,7 +17,7 @@ public interface PersonnelService {
      * @param personnel
      * @return
      */
-    List<Personnel> queryList(Personnel personnel);
+    List<Personnel> queryList(PersonnelFormDTO personnel);
 
     /**
      * 家庭列表
@@ -25,7 +25,7 @@ public interface PersonnelService {
      * @param id
      * @return
      */
-    List<Personnel> queryFamily(Long id);
+    List<PersonnelFormDTO> queryFamily(Long id);
 
 
     /**

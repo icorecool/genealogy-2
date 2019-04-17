@@ -41,7 +41,7 @@
         delete from personnel where id = #{id}
     </delete>
 
-    <select id="queryList" resultMap="BaseResultMap" parameterType="com.zhang.genealogy.model.Personnel">
+    <select id="queryList" resultMap="BaseResultMap" parameterType="com.zhang.genealogy.dto.PersonnelFormDTO">
         select
         <include refid="Base_Column_List"/>
         from personnel
@@ -55,14 +55,21 @@
             <if test="coupleId != null">
                 and coupleId = #{coupleId}
             </if>
-            <if test="generation != null">
-                and generation = #{generation}
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="isLiving != null">
+                and is_living = #{isLiving}
             </if>
             <if test="parentId != null">
                 and parentId = #{parentId}
             </if>
+            <if test="couple != null and couple !=''">
+                and coupleId is null
+            </if>
+
         </where>
-        order by id;
+        order by id desc
     </select>
 
     <select id="queryById" resultMap="BaseResultMap">

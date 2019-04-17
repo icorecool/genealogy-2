@@ -32,12 +32,42 @@
 </div>
 <div class="x-body">
     <div class="layui-row">
-        <div class="layui-form layui-col-md12 x-so">
-            <input type="text" name="name" id="name" placeholder="姓名" autocomplete="off" class="layui-input">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <input type="text" name="name" id="name" placeholder="姓名" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" name="generation" id="generation" placeholder="世代" autocomplete="off"
+                       class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <select id="isLiving" name="isLiving" style="height: 30px">
+                    <option value="" selected="">全部</option>
+                    <option value="0">在世</option>
+                    <option value="1">去世</option>
+                    <option value="2">未知</option>
+                </select>
+            </div>
+
+            <div class="layui-input-inline">
+                <select id="gender" name="gender" style="height: 30px">
+                    <option value="" selected="">全部</option>
+                    <option value="1">男</option>
+                    <option value="0">女</option>
+                </select>
+            </div>
+
+            <div class="layui-input-inline">
+                <select id="couple" name="couple" style="height: 30px">
+                    <option value="" >全部</option>
+                    <option value="1" selected="">只看张姓</option>
+                </select>
+            </div>
 
             <button class="layui-btn" onclick="searchPageList()"><i class="layui-icon">&#xe615;</i></button>
 
-            <button class="layui-btn" id="add" onclick="x_admin_show('添加人员','./personnel-add.html?page=add&parentId=0',800,700)">
+            <button class="layui-btn" id="add"
+                    onclick="x_admin_show('添加人员','./personnel-add.html?page=add&parentId=0',800,700)">
                 <i class="layui-icon"></i>添加
             </button>
 
@@ -52,7 +82,7 @@
         <thead>
         <tr>
             <th style="text-align: center;"><b>姓名</b></th>
-            <th style="text-align: center;"><b>辈分</b></th>
+            <th style="text-align: center;"><b>辈</b></th>
             <th style="text-align: center;"><b>性别</b></th>
             <th style="text-align: center;"><b>排行</b></th>
             <th style="text-align: center;"><b>出生日期</b></th>
@@ -88,6 +118,11 @@
     function searchPageList() {
         var search = {};
         search.name = $("#name").val();
+        search.generation = $("#generation").val();
+        search.isLiving = $("#isLiving").val();
+        search.gender = $("#gender").val();
+        search.couple = $("#couple").val();
+
         $.ajax({
             url: '/personnel/list',
             data: search,
