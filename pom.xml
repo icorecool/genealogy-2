@@ -84,9 +84,20 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 有多个主类，编译时需要指定主类 -->
+                    <mainClass>com.zhang.genealogy.GenealogyApplication</mainClass>
+                    <layout>ZIP</layout>
+                </configuration>
             </plugin>
         </plugins>
         <resources>
+            <resource>
+                <directory>/mapper</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
             <!-- 图标不编译 -->
             <resource>
                 <directory>/zhang</directory>
