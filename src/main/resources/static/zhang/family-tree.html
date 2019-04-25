@@ -17,8 +17,12 @@
 
     myChart.showLoading();
 
+    var parentId = getQueryString('parentId');
+    var searchInfo = {};
+    searchInfo.parentId = parentId;
     $.ajax({
         url: '/personnel/tree',
+        data: searchInfo,
         success: function (resule) {
             if (resule.code == 0) {
                 createTree(resule.data.tree)
@@ -39,7 +43,7 @@
             series: [    //系列列表
                 {
                     type: 'tree',    //树形结构
-                    initialTreeDepth:18,
+                    initialTreeDepth: 18,
                     data: [data],    //上面从flare.json中得到的数据
 
                     top: '1%',       //距离上
@@ -63,9 +67,9 @@
                     leaves: {    //叶子节点的特殊配置，如上面的树图示例中，叶子节点和非叶子节点的标签位置不同
                         label: {
                             normal: {
-                                position: 'right',
+                                position: 'left',
                                 verticalAlign: 'middle',
-                                align: 'left'
+                                align: 'right'
                             }
                         }
                     },
@@ -78,7 +82,13 @@
         });
     }
 
-
+    //查询url中的参数
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
 </script>
 </body>
 </html>

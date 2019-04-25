@@ -218,6 +218,9 @@
                         '<a class="layui-btn layui-btn-radius layui-btn-warm" onclick="addCouple(this, ' + personnel.id + ')">新增配偶</a>';
                 }
             }
+            if (personnel.coupleId == null) {
+                trStr += '<a class="layui-btn layui-btn-radius layui-btn-warm" onclick="viewTree(this, ' + personnel.id + ')">查看树形图</a>';
+            }
             trStr +=
                 '</div>' +
                 '</td>' +
@@ -252,6 +255,11 @@
     /*查看家庭*/
     function viewFamily(obj, id) {
         x_admin_show('查看家庭', './family-list.html?id=' + id, 1000, 500)
+    }
+
+    /*查看树形图*/
+    function viewTree(obj, id) {
+        x_admin_show('查看树形图', './family-tree.html?parentId=' + id, 1000, 500)
     }
 
     /*删除*/

@@ -233,7 +233,7 @@ public class PersonnelServiceImpl implements PersonnelService {
         EchartsTree echartsTree = new EchartsTree();
 
         PersonnelFormDTO searchPer = new PersonnelFormDTO();
-        searchPer.setParentId(id);
+        searchPer.setId(id);
         List<Personnel> personnelList = personnelDAO.queryList(searchPer);
         if (personnelList.size() != 1) {
             return null;

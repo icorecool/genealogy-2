@@ -64,10 +64,11 @@ public class PersonnelController {
      */
     @RequestMapping("/tree")
     @ResponseBody
-    public Result queryFamilyTree() {
-        //TODO 将数据库中始祖parentId改为0
-        Long id = 0L;
-        EchartsTree echartsTree = personnelService.queryFamilyTree(id);
+    public Result queryFamilyTree(Long parentId) {
+        if (parentId == null) {
+            parentId = 1L;
+        }
+        EchartsTree echartsTree = personnelService.queryFamilyTree(parentId);
         Result result = new Result();
         result.addObject("tree", echartsTree);
         return result;

@@ -46,6 +46,9 @@
         <include refid="Base_Column_List"/>
         from personnel
         <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
             <if test="name != null and name !=''">
                 and name like CONCAT('%',#{name},'%')
             </if>
