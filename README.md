@@ -3,9 +3,11 @@
 ##### 后台
    - SpringBoot
    - Mybatis
-   - Nginx
    - MySql
 ##### 前端   
    - Echarts
    - 百度地图
    - layui
+#### TODO
+   - 适应分辨率调整
+   - 上传附件（不会经常添加附件，此功能先不做）
